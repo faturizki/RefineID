@@ -37,7 +37,10 @@
   --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 110px;
+}
 
 body {
   font-family: 'Outfit', sans-serif;
@@ -962,7 +965,7 @@ section {
 
 .power-boost {
   position: fixed;
-  top: 86px;
+  top: 116px;
   right: 18px;
   padding: 9px 12px;
   background: rgba(10,10,15,0.95);
@@ -988,10 +991,74 @@ section {
 }
 .power-boost strong { color: var(--gold); }
 
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,10,15,0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 140;
+  transition: opacity 0.25s ease;
+}
+.modal-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-window {
+  width: min(560px, 92vw);
+  background: rgba(8,8,13,0.96);
+  border: 1px solid rgba(184,151,74,0.25);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 26px 42px rgba(0,0,0,0.46);
+}
+.modal-window h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.42rem;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.modal-window .modal-description {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+}
+.modal-detail {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text-primary);
+  margin-bottom: 9px;
+}
+.modal-detail strong { color: var(--gold); margin-right: 8px; }
+.modal-actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  line-height: 1;
+}
 @media (max-width: 1024px) {
   .power-boost { display: none !important; }
+  .modal-window { width: 92vw; }
 }
-
 
 .trusted-section, .testimonials-section, .metrics-section { padding-top: 80px; padding-bottom: 80px; }
 .trusted-grid, .testimonials-grid, .metrics-grid { display: grid; gap: 18px; margin-top: 32px; }
@@ -1743,6 +1810,21 @@ footer {
   </div>
 </section>
 
+<div class="modal-overlay" id="contactModal" aria-hidden="true">
+  <div class="modal-window">
+    <button class="modal-close" id="modalClose" aria-label="Tutup">×</button>
+    <h3>Konfirmasi Permintaan Konsultasi</h3>
+    <p class="modal-description">Silakan konfirmasi informasi Anda sebelum melanjutkan pengiriman via email.</p>
+    <div class="modal-detail"><strong>Nama:</strong> <span id="confirmName">-</span></div>
+    <div class="modal-detail"><strong>Email:</strong> <span id="confirmEmail">-</span></div>
+    <div class="modal-detail"><strong>Deskripsi:</strong><br/><span id="confirmMessage">-</span></div>
+    <div class="modal-actions">
+      <button id="modalCancel" class="btn-ghost">Batal</button>
+      <button id="modalConfirm" class="btn-primary"><span>Kirim Email</span></button>
+    </div>
+  </div>
+</div>
+
 <!-- ─── FOOTER ─── -->
 <footer>
   <div class="footer-grid">
@@ -1806,7 +1888,7 @@ document.querySelectorAll('a, button, .service-card, .audience-card, .pillar').f
 const navbar = document.getElementById('navbar');
 const powerBoost = document.querySelector('.power-boost');
 window.addEventListener('scroll', () => {
-  const atTop = window.scrollY < 120;
+  const atTop = window.scrollY < 260;
   navbar.classList.toggle('scrolled', window.scrollY > 60);
   if (powerBoost) {
     if (atTop) {
@@ -1903,8 +1985,28 @@ simBtn.addEventListener('click', () => {
   setSimulatedScore(simName.value);
 });
 
-// ─── EMAIL FORM (mailto) ───
+// ─── EMAIL FORM (mailto) + 2-step modal ───
 const contactForm = document.getElementById('contactForm');
+const contactModal = document.getElementById('contactModal');
+const confirmName = document.getElementById('confirmName');
+const confirmEmail = document.getElementById('confirmEmail');
+const confirmMessage = document.getElementById('confirmMessage');
+const modalClose = document.getElementById('modalClose');
+const modalCancel = document.getElementById('modalCancel');
+const modalConfirm = document.getElementById('modalConfirm');
+
+function hideModal() {
+  if (!contactModal) return;
+  contactModal.classList.remove('visible');
+  contactModal.setAttribute('aria-hidden', 'true');
+}
+
+function openModal() {
+  if (!contactModal) return;
+  contactModal.classList.add('visible');
+  contactModal.setAttribute('aria-hidden', 'false');
+}
+
 if (contactForm) {
   contactForm.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -1913,11 +2015,32 @@ if (contactForm) {
     const message = document.getElementById('messageInput').value.trim();
     if (!name || !email || !message) return;
 
+    confirmName.textContent = name;
+    confirmEmail.textContent = email;
+    confirmMessage.textContent = message;
+    openModal();
+  });
+}
+
+if (modalClose) modalClose.addEventListener('click', hideModal);
+if (modalCancel) modalCancel.addEventListener('click', hideModal);
+if (modalConfirm) {
+  modalConfirm.addEventListener('click', () => {
+    const name = document.getElementById('nameInput').value.trim();
+    const email = document.getElementById('emailInput').value.trim();
+    const message = document.getElementById('messageInput').value.trim();
+    if (!name || !email || !message) return;
+
     const subject = encodeURIComponent(`Konsultasi RefineID - ${name}`);
     const body = encodeURIComponent(`Nama: ${name}\nEmail: ${email}\n\nDeskripsi:\n${message}`);
     window.location.href = `mailto:halo@refineid.id?subject=${subject}&body=${body}`;
+    hideModal();
   });
 }
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') hideModal();
+});
 
 // ─── DISABLE CUSTOM CURSOR ON MOBILE SIGNAL ───
 if (window.matchMedia('(max-width: 640px)').matches) {
