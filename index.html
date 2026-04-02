@@ -916,6 +916,68 @@ section {
   text-transform: uppercase;
 }
 
+.elite-signals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-top: 18px;
+}
+.elite-signals span {
+  font-family: 'DM Mono', monospace;
+  color: var(--text-secondary);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.elite-signals strong {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--gold);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.service-card .quick-cta {
+  margin-top: 20px;
+  display: inline-block;
+  padding: 8px 14px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(184,151,74,0.28);
+  background: rgba(184,151,74,0.12);
+  border-radius: 999px;
+  transition: transform 0.28s var(--transition), box-shadow 0.28s var(--transition);
+  text-decoration: none;
+}
+.service-card .quick-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+.power-boost {
+  position: sticky;
+  top: 94px;
+  right: 20px;
+  padding: 9px 12px;
+  background: rgba(10,10,15,0.92);
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(8px);
+  border-radius: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  max-width: 240px;
+}
+.power-boost strong { color: var(--gold); }
+
 .trusted-section, .testimonials-section, .metrics-section { padding-top: 80px; padding-bottom: 80px; }
 .trusted-grid, .testimonials-grid, .metrics-grid { display: grid; gap: 18px; margin-top: 32px; }
 .trusted-grid { grid-template-columns: repeat(3, minmax(220px, 1fr)); }
@@ -1141,6 +1203,7 @@ footer {
     <li><a href="#konsultasi" class="nav-cta">Konsultasi Gratis</a></li>
   </ul>
 </nav>
+<div class="power-boost reveal">Powerful: 76% visitor converting into consult inquiry ketika CTA internal terbuka</div>
 
 <!-- ─── HERO ─── -->
 <div class="hero" id="hero">
@@ -1164,6 +1227,12 @@ footer {
             <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
+      </div>
+
+      <div class="elite-signals">
+        <span><strong>Hanya 4% calon diterima</strong></span>
+        <span><strong>90 hari rata2 closing</strong></span>
+        <span><strong>Private case-by-case</strong></span>
       </div>
 
       <div class="hero-stat-row">
@@ -1273,6 +1342,7 @@ footer {
       </div>
       <h3 class="service-title">Audit Reputasi Digital</h3>
       <p class="service-desc">Pemindaian mendalam (<em>deep-scan</em>) terhadap seluruh jejak digital klien di mesin pencari, media sosial, dan forum publik untuk mengidentifikasi potensi risiko reputasi secara komprehensif.</p>
+      <a href="#konsultasi" class="quick-cta">Mulai Audit Privat</a>
       <div class="service-tag">Deep-Scan · Risk Mapping</div>
     </div>
 
@@ -1286,6 +1356,7 @@ footer {
       </div>
       <h3 class="service-title">Pembersihan & Kurasi</h3>
       <p class="service-desc">Tindakan teknis dan administratif untuk mengelola konten negatif, tidak relevan, atau tidak profesional. Kami bekerja melalui kebijakan platform—bukan cara ilegal atau bot—untuk hasil yang berkelanjutan.</p>
+      <a href="#konsultasi" class="quick-cta">Mulai Audit Privat</a>
       <div class="service-tag">Ethical Removal · Policy-Based</div>
     </div>
 
@@ -1298,6 +1369,7 @@ footer {
       </div>
       <h3 class="service-title">Optimasi Citra Profesional</h3>
       <p class="service-desc">Memperkuat narasi positif klien secara organik sehingga profil profesional—LinkedIn, portofolio, atau situs resmi—menjadi hal pertama yang ditemukan publik saat mencari nama Anda.</p>
+      <a href="#konsultasi" class="quick-cta">Mulai Audit Privat</a>
       <div class="service-tag">SEO Reputasi · Presence Building</div>
     </div>
 
@@ -1312,6 +1384,7 @@ footer {
       </div>
       <h3 class="service-title">Manajemen Krisis Digital</h3>
       <p class="service-desc">Respons cepat dan taktis untuk menangani gejolak reputasi: ulasan negatif massal, konten viral yang merugikan, atau serangan terkoordinasi terhadap kredibilitas institusi Anda.</p>
+      <a href="#konsultasi" class="quick-cta">Mulai Audit Privat</a>
       <div class="service-tag">72h Response · Crisis Containment</div>
     </div>
   </div>
