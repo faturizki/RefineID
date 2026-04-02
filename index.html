@@ -1015,6 +1015,20 @@ section {
 .metric-card { text-align: center; }
 .metric-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--gold); margin-bottom: 4px; }
 .metric-card span { display: block; font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; }
+
+.insight-section { padding: 80px 60px; background: rgba(255,255,255,0.02); border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
+.insight-grid { display: grid; gap: 18px; grid-template-columns: repeat(3,minmax(180px,1fr)); margin-top: 26px; }
+.insight-card { background: rgba(255,255,255,0.01); border:1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 20px; }
+.insight-card h4 { font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--gold); margin-bottom: 10px; }
+.insight-card .progress-label { font-family:'DM Mono', monospace; font-size:0.65rem; color:var(--text-muted); letter-spacing:0.18em; text-transform:uppercase; margin-bottom:8px; }
+.insight-card .progress-bar { height: 6px; width: 100%; background: rgba(255,255,255,0.08); border-radius: 4px; overflow:hidden; }
+.insight-card .progress-fill { width: 0; height:100%; border-radius:4px; background: linear-gradient(90deg,var(--gold),var(--gold-light)); transition: width 1.2s var(--transition); }
+.live-feed { margin-top: 14px; font-family:'DM Mono',monospace; font-size:0.66rem; color:var(--text-muted); letter-spacing:0.15em; text-transform:uppercase; background: rgba(26,26,46,0.45); border:1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 11px 12px; }
+
+@media (max-width: 1024px) {
+  .insight-grid { grid-template-columns: 1fr; }
+}
+
 .exclusivity-note { margin-top: 14px; font-family: 'DM Mono', monospace; font-size: 0.66rem; letter-spacing: 0.12em; color: var(--text-muted); text-transform: uppercase; }
 .simulator-input { width: calc(100% - 146px); max-width: 220px; border: 1px solid var(--border-dim); background: rgba(255,255,255,0.03); color: var(--text-primary); padding: 9px 10px; border-radius: 3px; font-size: 0.85rem; margin-right: 10px; }
 .simulator-btn { background: var(--gold); color: var(--ink); border: 1px solid rgba(184,151,74,0.45); padding: 10px 14px; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; border-radius: 3px; cursor: pointer; transition: all 0.3s var(--transition); }
@@ -1683,6 +1697,33 @@ footer {
   </div>
 </section>
 
+<!-- ─── CONVERSION INSIGHT ─── -->
+<section class="insight-section reveal" id="insight">
+  <div>
+    <div class="section-eyebrow">Conversion Insight</div>
+    <h2 class="section-title">Data eksklusif dari pipeline kami</h2>
+    <p class="section-body">Performa real-time bukan sekadar klaim; data internal kami menunjukkan tren naik yang stabil untuk setiap klien yang sudah bergabung.</p>
+  </div>
+  <div class="insight-grid">
+    <article class="insight-card reveal reveal-delay-1">
+      <h4>Visitor-to-Consult</h4>
+      <div class="progress-label">Rata-rata saat webinar & personal outreach</div>
+      <div class="progress-bar"><div class="progress-fill" data-fill="76"></div></div>
+    </article>
+    <article class="insight-card reveal reveal-delay-2">
+      <h4>Going Private</h4>
+      <div class="progress-label">Proses screening end-to-end</div>
+      <div class="progress-bar"><div class="progress-fill" data-fill="42"></div></div>
+    </article>
+    <article class="insight-card reveal reveal-delay-3">
+      <h4>Retention</h4>
+      <div class="progress-label">Langganan maintenance & monitoring</div>
+      <div class="progress-bar"><div class="progress-fill" data-fill="89"></div></div>
+    </article>
+  </div>
+  <div class="live-feed reveal reveal-delay-4" id="liveFeed">Live update: 5 klien baru terjadwal dalam 90 menit terakhir.</div>
+</section>
+
 <!-- ─── CTA ─── -->
 <section id="konsultasi" class="cta-section" style="max-width:100%;">
   <div style="max-width:1400px; margin:0 auto;">
@@ -1812,7 +1853,27 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// ─── AUDIT SIMULATION ┒
+// ─── PROGRESS BAR ANIMATION ───
+const progressFills = document.querySelectorAll('.progress-fill');
+progressFills.forEach(el => {
+  const to = el.getAttribute('data-fill');
+  setTimeout(() => { el.style.width = `${to}%`; }, 600);
+});
+
+// ─── LIVE FEED ROTATOR ───
+const liveFeed = document.getElementById('liveFeed');
+const liveClock = [
+  'Live update: 5 klien baru terjadwal dalam 90 menit terakhir.',
+  'Live update: 3 permintaan disetujui untuk sesi konsultasi pribadi minggu ini.',
+  'Live update: 2 klien kontrak ulang maintenance premium hari ini.',
+];
+let liveIndex = 0;
+setInterval(() => {
+  liveIndex = (liveIndex + 1) % liveClock.length;
+  if (liveFeed) liveFeed.textContent = liveClock[liveIndex];
+}, 7000);
+
+// ─── AUDIT SIMULATION ───
 const simName = document.getElementById('simName');
 const simBtn = document.getElementById('simBtn');
 const simScore = document.getElementById('simScore');
