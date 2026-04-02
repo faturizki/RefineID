@@ -515,6 +515,19 @@ section {
   padding: 120px 60px;
   max-width: 1400px;
   margin: 0 auto;
+  scroll-margin-top: 100px;
+  position: relative;
+  min-height: auto;
+}
+
+.trusted-section, .testimonials-section {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  margin-top: 24px;
+  padding-top: 80px;
+}
+
+.trusted-grid, .testimonials-grid {
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
 }
 
 .section-eyebrow {
