@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RefineID — Kurator Reputasi Digital</title>
+<meta name="description" content="RefineID: layanan konsultasi reputasi digital eksklusif. Audit, pembersihan, dan optimasi nama Anda dengan kerahasiaan penuh.">
+<meta property="og:title" content="RefineID — Elite Reputasi Digital" />
+<meta property="og:description" content="Hasil nyata, rahasia klien terjaga. Premium reputasi management for executives and high-profile individuals." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://refineid.id" />
+<meta property="og:image" content="https://refineid.id/og-image.jpg" />
+<title>RefineID — Elite Reputasi Digital & Konsultasi Privat</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Outfit:wght@200;300;400&display=swap" rel="stylesheet">
@@ -897,6 +903,45 @@ section {
   text-transform: uppercase;
 }
 
+.trusted-section, .testimonials-section, .metrics-section { padding-top: 80px; padding-bottom: 80px; }
+.trusted-grid, .testimonials-grid, .metrics-grid { display: grid; gap: 18px; margin-top: 32px; }
+.trusted-grid { grid-template-columns: repeat(3, minmax(220px, 1fr)); }
+.testimonials-grid { grid-template-columns: repeat(2, minmax(260px, 1fr)); }
+.metrics-grid { grid-template-columns: repeat(3, minmax(140px, 1fr)); }
+.case-card, .testimonial-card, .metric-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border-dim);
+  border-radius: 6px;
+  padding: 26px;
+  transition: transform 0.4s var(--transition), box-shadow 0.4s var(--transition), border-color 0.4s;
+}
+.case-card:hover, .testimonial-card:hover, .metric-card:hover { transform: translateY(-4px); border-color: rgba(184,151,74,0.35); box-shadow: 0 14px 30px rgba(0,0,0,0.17); }
+.case-card h4, .metric-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--gold); margin-bottom: 10px; }
+.case-card p, .testimonial-card p, .metric-card p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
+.case-card ul { margin: 10px 0 0 18px; color: var(--text-secondary); }
+.case-card ul li { margin-bottom: 6px; }
+.testimonial-card blockquote { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--text-primary); font-style: italic; line-height: 1.5; margin-bottom: 12px; }
+.testimonial-card .source { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.14em; color: var(--text-muted); text-transform: uppercase; }
+.metric-card { text-align: center; }
+.metric-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--gold); margin-bottom: 4px; }
+.metric-card span { display: block; font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; }
+.exclusivity-note { margin-top: 14px; font-family: 'DM Mono', monospace; font-size: 0.66rem; letter-spacing: 0.12em; color: var(--text-muted); text-transform: uppercase; }
+.simulator-input { width: calc(100% - 146px); max-width: 220px; border: 1px solid var(--border-dim); background: rgba(255,255,255,0.03); color: var(--text-primary); padding: 9px 10px; border-radius: 3px; font-size: 0.85rem; margin-right: 10px; }
+.simulator-btn { background: var(--gold); color: var(--ink); border: 1px solid rgba(184,151,74,0.45); padding: 10px 14px; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; border-radius: 3px; cursor: pointer; transition: all 0.3s var(--transition); }
+.simulator-btn:hover { transform: translateY(-2px); }
+.sticky-cta { position: fixed; right: 18px; bottom: 18px; background: rgba(184,151,74,0.94); color: #0a0a0f; padding: 10px 14px; border-radius: 999px; font-family: 'DM Mono', monospace; font-size:0.65rem; letter-spacing:0.22em; text-transform: uppercase; text-decoration: none; z-index: 999; box-shadow: 0 10px 22px rgba(0,0,0,0.25); opacity: 0.94; transition: transform 0.25s, opacity 0.25s; }
+.sticky-cta:hover { transform: translateY(-2px); opacity:1; }
+@media (max-width: 1024px) {
+  .trusted-grid, .testimonials-grid, .metrics-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .cursor, .cursor-ring { display: none !important; }
+  .hero-actions { flex-direction: column; }
+  .simulator-input { width: 100%; margin:0 0 10px 0; }
+  .simulator-btn { width: 100%; }
+  .sticky-cta { display: none; }
+}
+
 /* ─── FOOTER ─── */
 footer {
   padding: 60px 60px 40px;
@@ -1157,17 +1202,25 @@ footer {
         <div class="scan-score">
           <div>
             <div class="score-label">Reputation Score</div>
-            <div class="score-value">38/100</div>
+            <div class="score-value" id="simScore">38/100</div>
           </div>
           <div>
             <div class="score-label" style="margin-bottom:8px;">Urgensi Penanganan</div>
-            <div class="score-bar"><div class="score-fill"></div></div>
+            <div class="score-bar"><div class="score-fill" id="simScoreBar"></div></div>
           </div>
+        </div>
+
+        <div style="margin-top:20px; display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
+          <input id="simName" class="simulator-input" placeholder="Masukkan nama klien" />
+          <button id="simBtn" class="simulator-btn">Simulasikan Audit</button>
+          <span class="scan-sim-note" style="font-size:0.68rem; color: var(--text-muted);">Tanpa data nyata — hanya contoh ringkas.</span>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<a href="#konsultasi" class="sticky-cta">Mulai Audit Privat</a>
 
 <!-- ─── MARQUEE ─── -->
 <div class="marquee-wrap">
@@ -1307,6 +1360,117 @@ footer {
   </div>
 </section>
 
+<!-- ─── TRUSTED OUTCOMES ─── -->
+<section id="trusted-outcomes" class="trusted-section">
+  <div class="reveal">
+    <div class="section-eyebrow">Trusted Outcomes</div>
+    <h2 class="section-title">Hasil Nyata, <em>Tanpa Eksposur</em></h2>
+    <p class="section-body">Diskresi adalah bagian dari layanan kami. Berikut adalah ringkasan hasil yang telah kami capai—tanpa mengungkap identitas klien.</p>
+  </div>
+
+  <div class="trusted-grid">
+    <article class="case-card reveal reveal-delay-1">
+      <h4>Kasus #014 — Eksekutif Teknologi</h4>
+      <p>Masalah:</p>
+      <ul>
+        <li>3 hasil negatif di Google halaman 1</li>
+        <li>Konten forum lama</li>
+      </ul>
+      <p>Tindakan:</p>
+      <ul>
+        <li>Cleanup berbasis kebijakan platform</li>
+        <li>Optimasi profil profesional</li>
+      </ul>
+      <p>Hasil:</p>
+      <ul>
+        <li>✔ 2 konten dihapus</li>
+        <li>✔ 1 turun ke halaman 3</li>
+        <li>✔ Skor reputasi: 42 → 81</li>
+      </ul>
+    </article>
+
+    <article class="case-card reveal reveal-delay-2">
+      <h4>Kasus #037 — Owner Brand Luxury</h4>
+      <p>Masalah:</p>
+      <ul>
+        <li>Ulasan negatif tak terkelola</li>
+        <li>Pengelolaan akun pribadi kurang konsisten</li>
+      </ul>
+      <p>Tindakan:</p>
+      <ul>
+        <li>Manajemen review & respons profesional</li>
+        <li>Optimalisasi rantai profil resmi</li>
+      </ul>
+      <p>Hasil:</p>
+      <ul>
+        <li>✔ Reputasi rating naik 2.1→4.4</li>
+        <li>✔ Sinyal negatif turun 69%</li>
+      </ul>
+    </article>
+
+    <article class="case-card reveal reveal-delay-3">
+      <h4>Kasus #068 — Pimpinan Industri Finansial</h4>
+      <p>Masalah:</p>
+      <ul>
+        <li>Konten topik sensitif di hasil pencarian</li>
+        <li>Keterkaitan nama dengan rumor</li>
+      </ul>
+      <p>Tindakan:</p>
+      <ul>
+        <li>Strategi konten positif berkelanjutan</li>
+        <li>Negosiasi penghapusan & penonaktifan tautan</li>
+      </ul>
+      <p>Hasil:</p>
+      <ul>
+        <li>✔ 5 tautan negatif ditutup</li>
+        <li>✔ Domain otoritas tervalidasi meningkat</li>
+      </ul>
+    </article>
+  </div>
+
+  <div class="metrics-section reveal reveal-delay-4">
+    <div class="metrics-grid">
+      <article class="metric-card">
+        <h3>500+</h3>
+        <span>Kasus Ditangani</span>
+      </article>
+      <article class="metric-card">
+        <h3>94%</h3>
+        <span>Rasio Keberhasilan</span>
+      </article>
+      <article class="metric-card">
+        <h3>72h</h3>
+        <span>Respon Krisis</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section id="testimonials" class="testimonials-section">
+  <div class="reveal">
+    <div class="section-eyebrow">Testimoni</div>
+    <h2 class="section-title">Ulasan anonim dari<br><em>klien</em> yang memilih kami</h2>
+  </div>
+
+  <div class="testimonials-grid">
+    <article class="testimonial-card reveal reveal-delay-1">
+      <blockquote>"Pendekatan mereka lebih seperti strategic advisor daripada vendor. Kami mendapatkan ringkasan situasi yang jelas, jalur tindakan yang terukur, dan hasil yang cepat—tanpa suara gaduh publik."</blockquote>
+      <div class="source">— Founder, Technology Startup</div>
+    </article>
+
+    <article class="testimonial-card reveal reveal-delay-2">
+      <blockquote>"Kerahasiaan adalah janji yang mereka tepati. Hanya dalam 6 minggu, risiko reputasi kami menurun secara signifikan dan konsolidasi kemunculan pencarian berhasil."</blockquote>
+      <div class="source">— Council Member, Private Equity</div>
+    </article>
+
+    <article class="testimonial-card reveal reveal-delay-3">
+      <blockquote>"Layanan ini terasa personal, putih abu-abu, dan eksklusif. Bukan produk masal — setiap keputusan dikomunikasikan secara privat dengan pemahaman kontekstual mendalam."</blockquote>
+      <div class="source">— Senior Advisor, Corporate Governance</div>
+    </article>
+  </div>
+</section>
+
 <!-- ─── AUDIENCE ─── -->
 <section id="klien" class="audience-section" style="max-width:100%; padding: 120px 60px;">
   <div style="max-width:1400px; margin:0 auto;">
@@ -1421,16 +1585,19 @@ footer {
 <!-- ─── CTA ─── -->
 <section id="konsultasi" class="cta-section" style="max-width:100%;">
   <div style="max-width:1400px; margin:0 auto;">
-    <div class="section-eyebrow reveal" style="justify-content:center;">Mulai Sekarang</div>
-    <h2 class="section-title reveal">Ketika dunia mencari nama Anda,<br>apa yang akan <em>mereka temukan</em>?</h2>
-    <p class="section-body reveal">Konsultasi pertama gratis. Tidak ada komitmen, tidak ada tekanan—hanya percakapan jujur tentang situasi reputasi digital Anda saat ini.</p>
+    <div class="section-eyebrow reveal" style="justify-content:center;">Konsultasi Privat Dimulai dari Sini</div>
+    <h2 class="section-title reveal">Konsultasi Privat Dimulai dari Sini</h2>
+    <p class="section-body reveal">Kami menangani setiap kasus secara selektif untuk menjaga kualitas dan kerahasiaan.</p>
 
-    <div style="display:flex; flex-direction:column; align-items:center; gap:24px;" class="reveal">
-      <a href="#" class="btn-primary" style="font-size:0.75rem; padding:18px 52px;"><span>Jadwalkan Konsultasi Gratis</span></a>
-      <div style="font-family:'DM Mono', monospace; font-size:0.62rem; color:var(--text-muted); letter-spacing:0.15em;">atau hubungi kami di</div>
-      <a href="mailto:halo@refineid.id" class="cta-email">halo@refineid.id</a>
-      <div class="cta-note">Kerahasiaan dijamin · Tidak ada komitmen awal · Respons dalam 24 jam</div>
-    </div>
+    <form id="contactForm" class="reveal" style="max-width:620px; margin:20px auto 0; display:grid; gap:14px;">
+      <input type="text" name="name" id="nameInput" placeholder="Nama" required style="background: rgba(255,255,255,0.03); border:1px solid var(--border-dim); padding:12px 14px; border-radius:3px; color:var(--text-primary); font-family:'Outfit',sans-serif;" />
+      <input type="email" name="email" id="emailInput" placeholder="Email" required style="background: rgba(255,255,255,0.03); border:1px solid var(--border-dim); padding:12px 14px; border-radius:3px; color:var(--text-primary); font-family:'Outfit',sans-serif;" />
+      <textarea name="message" id="messageInput" placeholder="Deskripsi singkat situasi Anda" rows="4" style="background: rgba(255,255,255,0.03); border:1px solid var(--border-dim); padding:12px 14px; border-radius:3px; color:var(--text-primary); font-family:'Outfit',sans-serif;"></textarea>
+      <button type="submit" class="btn-primary" style="font-size:0.78rem; padding:14px 34px; width:max-content;"><span>Kirim Permintaan Konsultasi</span></button>
+    </form>
+
+    <div class="exclusivity-note reveal">Tidak semua permintaan kami terima. Setiap kasus melalui proses evaluasi awal.</div>
+    <div class="cta-note reveal">Kerahasiaan dijamin · Respons dalam 24 jam · Diskresi level premium</div>
   </div>
 </section>
 
@@ -1534,6 +1701,59 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   });
 });
+
+// ─── AUDIT SIMULATION ┒
+const simName = document.getElementById('simName');
+const simBtn = document.getElementById('simBtn');
+const simScore = document.getElementById('simScore');
+const simScoreBar = document.getElementById('simScoreBar');
+const scanName = document.querySelector('.scan-name');
+const scanTitle = document.querySelector('.scan-title-label');
+
+function setSimulatedScore(name) {
+  if (!name.trim()) return;
+  const base = 40;
+  const variance = name.length % 45;
+  const targetValue = Math.max(35, Math.min(90, base + variance + Math.floor(Math.random() * 12) - 3));
+  const scoreText = `${targetValue}/100`;
+  simScore.textContent = scoreText;
+  simScoreBar.style.width = `${Math.max(12, Math.min(96, targetValue))}%`;
+  simScoreBar.style.background = targetValue >= 70 ? 'linear-gradient(to right, #34d399, #84cc16)' : (targetValue >= 50 ? 'linear-gradient(to right, #f59e0b, #fbbf24)' : 'linear-gradient(to right, #f87171, #fb7185)');
+  scanName.textContent = name;
+  scanTitle.textContent = 'Simulasi privat • hanya visualisasi';
+  simBtn.textContent = 'Audit Tampil';
+}
+
+simBtn.addEventListener('click', () => {
+  if (!simName.value.trim()) {
+    simName.focus();
+    return;
+  }
+  setSimulatedScore(simName.value);
+});
+
+// ─── EMAIL FORM (mailto) ───
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const name = document.getElementById('nameInput').value.trim();
+    const email = document.getElementById('emailInput').value.trim();
+    const message = document.getElementById('messageInput').value.trim();
+    if (!name || !email || !message) return;
+
+    const subject = encodeURIComponent(`Konsultasi RefineID - ${name}`);
+    const body = encodeURIComponent(`Nama: ${name}\nEmail: ${email}\n\nDeskripsi:\n${message}`);
+    window.location.href = `mailto:halo@refineid.id?subject=${subject}&body=${body}`;
+  });
+}
+
+// ─── DISABLE CUSTOM CURSOR ON MOBILE SIGNAL ───
+if (window.matchMedia('(max-width: 640px)').matches) {
+  if (cursor) cursor.style.display = 'none';
+  if (cursorRing) cursorRing.style.display = 'none';
+}
+
 </script>
 </body>
 </html>
