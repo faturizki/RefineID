@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RefineID — Kurator Reputasi Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Outfit:wght@200;300;400&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #0a0a0f;
+  --ink-soft: #111118;
+  --paper: #f5f2ec;
+  --paper-warm: #ede9e0;
+  --gold: #b8974a;
+  --gold-light: #d4b06a;
+  --gold-dim: rgba(184,151,74,0.15);
+  --silver: #8a8a96;
+  --silver-light: #c4c4cc;
+  --cream: #f9f6f0;
+  --accent: #1a1a2e;
+  --text-primary: #e8e4dc;
+  --text-secondary: #9a9690;
+  --text-muted: #5a5650;
+  --border: rgba(184,151,74,0.2);
+  --border-dim: rgba(255,255,255,0.06);
+  --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  background: var(--ink);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom Cursor */
+.cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 10px; height: 10px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, width 0.3s var(--transition), height 0.3s var(--transition), opacity 0.3s;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 36px; height: 36px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s var(--transition), width 0.4s var(--transition), height 0.4s var(--transition), opacity 0.4s, border-color 0.3s;
+  opacity: 0.5;
+}
+.cursor.hover { width: 20px; height: 20px; }
+.cursor-ring.hover { width: 60px; height: 60px; opacity: 0.3; border-color: var(--gold-light); }
+
+/* Noise Texture Overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.35;
+}
+
+/* ─── NAVIGATION ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 28px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.4s, background 0.4s, padding 0.4s;
+}
+nav.scrolled {
+  border-color: var(--border-dim);
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(20px);
+  padding: 18px 60px;
+}
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
+  text-decoration: none;
+  position: relative;
+}
+.nav-logo span { color: var(--gold); }
+.nav-logo::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.4s var(--transition);
+}
+.nav-logo:hover::after { width: 100%; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s var(--transition);
+}
+.nav-links a:hover { color: var(--text-primary); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold) !important;
+  border: 1px solid var(--border);
+  padding: 10px 22px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.3s var(--transition) !important;
+  background: transparent;
+}
+.nav-cta:hover {
+  background: var(--gold-dim) !important;
+  border-color: var(--gold) !important;
+  color: var(--gold-light) !important;
+}
+.nav-cta::after { display: none !important; }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(184,151,74,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 80% at 10% 80%, rgba(26,26,46,0.6) 0%, transparent 60%);
+}
+
+.hero-line {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--border), transparent);
+  opacity: 0.4;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeSlideUp 0.9s 0.3s var(--transition) forwards;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 40px; height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 6.5vw, 7rem);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  opacity: 0;
+  animation: fadeSlideUp 1s 0.5s var(--transition) forwards;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 300;
+}
+
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 3.5vw, 3.8rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeSlideUp 1s 0.65s var(--transition) forwards;
+}
+
+.hero-desc {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  max-width: 480px;
+  margin-bottom: 48px;
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeSlideUp 1s 0.8s var(--transition) forwards;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  opacity: 0;
+  animation: fadeSlideUp 1s 1s var(--transition) forwards;
+}
+
+.btn-primary {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: var(--gold);
+  color: var(--ink);
+  padding: 16px 36px;
+  border-radius: 2px;
+  text-decoration: none;
+  font-weight: 400;
+  transition: all 0.35s var(--transition);
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold-light);
+  transform: translateX(-100%);
+  transition: transform 0.4s var(--transition);
+}
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary span { position: relative; z-index: 1; }
+
+.btn-ghost {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  padding: 16px 36px;
+  border-radius: 2px;
+  text-decoration: none;
+  border: 1px solid var(--border-dim);
+  transition: all 0.35s var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-ghost:hover {
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+/* Hero Right Panel */
+.hero-right {
+  position: relative;
+  opacity: 0;
+  animation: fadeIn 1.4s 0.9s var(--transition) forwards;
+}
+
+.hero-scan-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border-dim);
+  border-radius: 4px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-scan-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+}
+
+.scan-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.scan-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.scan-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: #4ade80;
+  letter-spacing: 0.1em;
+}
+.scan-dot {
+  width: 6px; height: 6px;
+  background: #4ade80;
+  border-radius: 50%;
+  animation: pulse-green 2s infinite;
+}
+
+.scan-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.scan-title-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  font-weight: 300;
+}
+
+.scan-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.scan-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.04);
+  transition: all 0.4s;
+}
+.scan-item-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+}
+.scan-item-value {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  padding: 3px 10px;
+  border-radius: 2px;
+}
+.status-clean { color: #4ade80; background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.2); }
+.status-warn { color: #fbbf24; background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.2); }
+.status-risk { color: #f87171; background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.2); }
+
+.scan-score {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-dim);
+}
+.score-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.score-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: var(--gold);
+}
+.score-bar {
+  width: 120px; height: 3px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.score-fill {
+  height: 100%;
+  width: 38%;
+  background: linear-gradient(to right, #f87171, #fbbf24);
+  border-radius: 2px;
+  animation: score-grow 1.5s 1.5s var(--transition) both;
+}
+
+@keyframes score-grow { from { width: 0; } to { width: 38%; } }
+
+.hero-stat-row {
+  display: flex;
+  gap: 32px;
+  margin-top: 32px;
+}
+.hero-stat {
+  opacity: 0;
+  animation: fadeSlideUp 0.8s var(--transition) forwards;
+}
+.hero-stat:nth-child(1) { animation-delay: 1.2s; }
+.hero-stat:nth-child(2) { animation-delay: 1.35s; }
+.hero-stat:nth-child(3) { animation-delay: 1.5s; }
+.hero-stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.hero-stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* ─── DIVIDER ─── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 60px;
+  margin: 0 auto;
+  max-width: 1400px;
+}
+.divider-line { flex: 1; height: 1px; background: var(--border-dim); }
+.divider-mark {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* ─── SECTIONS ─── */
+section {
+  padding: 120px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.section-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 30px; height: 1px;
+  background: var(--gold);
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+.section-title em { font-style: italic; color: var(--gold); }
+
+.section-body {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+  font-weight: 300;
+  max-width: 600px;
+}
+
+/* ─── SERVICES ─── */
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-top: 80px;
+}
+
+.service-card {
+  padding: 52px 48px;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid var(--border-dim);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s var(--transition);
+  cursor: default;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--gold), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--transition);
+}
+.service-card:hover::before { transform: scaleX(1); }
+.service-card:hover { background: rgba(184,151,74,0.04); }
+
+.service-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: rgba(184,151,74,0.15);
+  position: absolute;
+  top: 28px; right: 40px;
+  line-height: 1;
+  font-style: italic;
+  transition: color 0.4s;
+}
+.service-card:hover .service-number { color: rgba(184,151,74,0.3); }
+
+.service-icon {
+  width: 40px; height: 40px;
+  margin-bottom: 28px;
+  opacity: 0.8;
+}
+.service-icon svg { width: 100%; height: 100%; }
+
+.service-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.service-desc {
+  font-size: 0.92rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.service-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.service-tag::before {
+  content: '';
+  display: inline-block;
+  width: 20px; height: 1px;
+  background: var(--gold);
+}
+
+/* ─── WHY REFINEID ─── */
+.why-section { position: relative; }
+
+.why-section::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 80px; bottom: 80px;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--border), transparent);
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  margin-top: 80px;
+}
+
+.why-left { position: relative; }
+.philosophy-block {
+  padding: 52px;
+  background: rgba(184,151,74,0.04);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  position: relative;
+}
+.philosophy-block::before {
+  content: '"';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 8rem;
+  color: rgba(184,151,74,0.1);
+  position: absolute;
+  top: -20px; left: 32px;
+  line-height: 1;
+}
+.philosophy-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+.philosophy-attr {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.why-pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.pillar {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border-dim);
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  transition: all 0.3s;
+}
+.pillar:hover { padding-left: 12px; }
+.pillar:last-child { border-bottom: none; }
+.pillar-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--gold);
+  opacity: 0.7;
+  min-width: 24px;
+  margin-top: 3px;
+}
+.pillar-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.pillar-desc {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+/* ─── AUDIENCE ─── */
+.audience-section {
+  background: linear-gradient(135deg, rgba(26,26,46,0.5) 0%, rgba(10,10,15,0) 100%);
+  border-top: 1px solid var(--border-dim);
+  border-bottom: 1px solid var(--border-dim);
+}
+
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 80px;
+}
+
+.audience-card {
+  padding: 48px 40px;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid var(--border-dim);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.4s;
+}
+.audience-card:hover { background: rgba(255,255,255,0.03); }
+
+.audience-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 40px; right: 40px;
+  height: 1px;
+  background: linear-gradient(to right, var(--gold), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--transition);
+}
+.audience-card:hover::after { transform: scaleX(1); }
+
+.audience-icon {
+  font-size: 1.8rem;
+  margin-bottom: 28px;
+  display: block;
+}
+
+.audience-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.audience-desc {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.audience-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+.tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  border: 1px solid var(--border-dim);
+  padding: 5px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+.audience-card:hover .tag { border-color: var(--border); color: var(--text-secondary); }
+
+/* ─── PROCESS ─── */
+.process-section { position: relative; }
+
+.process-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 80px;
+  max-width: 800px;
+}
+
+.process-step {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 32px;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--border-dim);
+  position: relative;
+}
+.process-step:last-child { border-bottom: none; }
+
+.step-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.step-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--gold);
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(184,151,74,0.05);
+  flex-shrink: 0;
+}
+.step-line {
+  flex: 1;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--border), transparent);
+  margin-top: 8px;
+}
+.process-step:last-child .step-line { display: none; }
+
+.step-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  padding-top: 4px;
+}
+.step-desc {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+/* ─── CTA ─── */
+.cta-section {
+  text-align: center;
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 50%, rgba(184,151,74,0.06) 0%, transparent 70%),
+    linear-gradient(180deg, transparent, rgba(26,26,46,0.3), transparent);
+  border-top: 1px solid var(--border-dim);
+  border-bottom: 1px solid var(--border-dim);
+  padding: 160px 60px;
+}
+.cta-section .section-eyebrow { justify-content: center; }
+.cta-section .section-title { text-align: center; max-width: 700px; margin: 0 auto 20px; }
+.cta-section .section-body { margin: 0 auto 52px; text-align: center; }
+
+.cta-email {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 4px;
+  transition: border-color 0.3s;
+}
+.cta-email:hover { border-color: var(--gold); }
+
+.cta-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-top: 24px;
+  text-transform: uppercase;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 60px 60px 40px;
+  border-top: 1px solid var(--border-dim);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 80px;
+  margin-bottom: 60px;
+}
+
+.footer-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+.footer-brand span { color: var(--gold); }
+.footer-tagline {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  font-weight: 300;
+  max-width: 280px;
+}
+
+.footer-col-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.footer-links a {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s;
+  font-weight: 300;
+}
+.footer-links a:hover { color: var(--text-secondary); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-dim);
+}
+.footer-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+}
+.footer-philosophy {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulse-green {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s var(--transition), transform 0.8s var(--transition);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ─── MARQUEE ─── */
+.marquee-wrap {
+  overflow: hidden;
+  border-top: 1px solid var(--border-dim);
+  border-bottom: 1px solid var(--border-dim);
+  padding: 20px 0;
+  background: rgba(184,151,74,0.02);
+}
+.marquee-track {
+  display: flex;
+  gap: 0;
+  animation: marquee 30s linear infinite;
+  white-space: nowrap;
+}
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 40px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.marquee-item::after {
+  content: '·';
+  margin-left: 40px;
+  color: var(--gold);
+  opacity: 0.5;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  nav { padding: 24px 32px; }
+  nav.scrolled { padding: 16px 32px; }
+  section { padding: 80px 32px; }
+  .hero { padding: 0 32px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 60px; }
+  .hero-line { display: none; }
+  .services-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .audience-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .section-divider { padding: 0 32px; }
+}
+
+@media (max-width: 640px) {
+  nav { padding: 20px 20px; }
+  nav.scrolled { padding: 14px 20px; }
+  .nav-links { display: none; }
+  section { padding: 60px 20px; }
+  .hero { padding: 80px 20px 60px; }
+  .hero-stat-row { gap: 24px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  footer { padding: 40px 20px 24px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  .cta-section { padding: 100px 20px; }
+  .section-divider { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ─── NAVIGATION ─── -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Refine<span>ID</span></a>
+  <ul class="nav-links">
+    <li><a href="#layanan">Layanan</a></li>
+    <li><a href="#mengapa">Mengapa Kami</a></li>
+    <li><a href="#klien">Klien</a></li>
+    <li><a href="#proses">Proses</a></li>
+    <li><a href="#konsultasi" class="nav-cta">Konsultasi Gratis</a></li>
+  </ul>
+</nav>
+
+<!-- ─── HERO ─── -->
+<div class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Kurator Reputasi Digital</div>
+      <h1 class="hero-title">
+        Identitas yang<br><em>Lebih Baik</em><br>dari Masa Lalu
+      </h1>
+      <p class="hero-subtitle">dimulai dari sini.</p>
+      <p class="hero-desc">
+        RefineID mengaudit, membersihkan, dan memperkuat jejak digital Anda—sehingga ketika dunia mencari nama Anda, mereka menemukan versi terbaik dari siapa Anda sebenarnya.
+      </p>
+      <div class="hero-actions">
+        <a href="#konsultasi" class="btn-primary"><span>Mulai Audit Gratis</span></a>
+        <a href="#layanan" class="btn-ghost">
+          Lihat Layanan
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="hero-stat-row">
+        <div class="hero-stat">
+          <div class="hero-stat-num">500+</div>
+          <div class="hero-stat-label">Klien Ditangani</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">94%</div>
+          <div class="hero-stat-label">Tingkat Keberhasilan</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">72h</div>
+          <div class="hero-stat-label">Respon Krisis</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-scan-card">
+        <div class="scan-header">
+          <span class="scan-label">Audit Preview</span>
+          <span class="scan-status"><span class="scan-dot"></span> Scanning...</span>
+        </div>
+        <div class="scan-name">Budi Santoso</div>
+        <div class="scan-title-label">Marketing Director · Jakarta</div>
+        <div class="scan-items">
+          <div class="scan-item">
+            <span class="scan-item-label">Google Halaman 1</span>
+            <span class="scan-item-value status-warn">3 Risiko</span>
+          </div>
+          <div class="scan-item">
+            <span class="scan-item-label">Media Sosial Lama</span>
+            <span class="scan-item-value status-risk">Kritis</span>
+          </div>
+          <div class="scan-item">
+            <span class="scan-item-label">Profil LinkedIn</span>
+            <span class="scan-item-value status-warn">Perlu Optimasi</span>
+          </div>
+          <div class="scan-item">
+            <span class="scan-item-label">Berita & Artikel</span>
+            <span class="scan-item-value status-clean">Bersih</span>
+          </div>
+          <div class="scan-item">
+            <span class="scan-item-label">Review & Ulasan</span>
+            <span class="scan-item-value status-warn">2 Negatif</span>
+          </div>
+        </div>
+        <div class="scan-score">
+          <div>
+            <div class="score-label">Reputation Score</div>
+            <div class="score-value">38/100</div>
+          </div>
+          <div>
+            <div class="score-label" style="margin-bottom:8px;">Urgensi Penanganan</div>
+            <div class="score-bar"><div class="score-fill"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── MARQUEE ─── -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Audit Reputasi Digital</span>
+    <span class="marquee-item">Pembersihan Konten</span>
+    <span class="marquee-item">Optimasi Citra Profesional</span>
+    <span class="marquee-item">Manajemen Krisis</span>
+    <span class="marquee-item">Perlindungan Privasi</span>
+    <span class="marquee-item">SEO Reputasi</span>
+    <span class="marquee-item">Audit Reputasi Digital</span>
+    <span class="marquee-item">Pembersihan Konten</span>
+    <span class="marquee-item">Optimasi Citra Profesional</span>
+    <span class="marquee-item">Manajemen Krisis</span>
+    <span class="marquee-item">Perlindungan Privasi</span>
+    <span class="marquee-item">SEO Reputasi</span>
+  </div>
+</div>
+
+<!-- ─── SERVICES ─── -->
+<section id="layanan">
+  <div class="reveal">
+    <div class="section-eyebrow">Pilar Layanan</div>
+    <h2 class="section-title">Kami tidak hanya<br><em>menghapus</em>, kami <em>kurasi</em>.</h2>
+    <p class="section-body">Setiap tindakan kami didasarkan pada audit data awal—bukan asumsi—untuk memastikan perubahan yang berdampak nyata dan tahan lama.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-number">01</div>
+      <div class="service-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="18" r="10" stroke="#b8974a" stroke-width="1.2"/>
+          <path d="M26 26l8 8" stroke="#b8974a" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M14 18h8M18 14v8" stroke="#b8974a" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+      </div>
+      <h3 class="service-title">Audit Reputasi Digital</h3>
+      <p class="service-desc">Pemindaian mendalam (<em>deep-scan</em>) terhadap seluruh jejak digital klien di mesin pencari, media sosial, dan forum publik untuk mengidentifikasi potensi risiko reputasi secara komprehensif.</p>
+      <div class="service-tag">Deep-Scan · Risk Mapping</div>
+    </div>
+
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-number">02</div>
+      <div class="service-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="10" width="24" height="20" rx="2" stroke="#b8974a" stroke-width="1.2"/>
+          <path d="M14 20l4 4 8-8" stroke="#b8974a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3 class="service-title">Pembersihan & Kurasi</h3>
+      <p class="service-desc">Tindakan teknis dan administratif untuk mengelola konten negatif, tidak relevan, atau tidak profesional. Kami bekerja melalui kebijakan platform—bukan cara ilegal atau bot—untuk hasil yang berkelanjutan.</p>
+      <div class="service-tag">Ethical Removal · Policy-Based</div>
+    </div>
+
+    <div class="service-card reveal reveal-delay-3">
+      <div class="service-number">03</div>
+      <div class="service-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 8l2.2 6.8H29l-5.8 4.2 2.2 6.8L20 22l-5.4 3.8 2.2-6.8L11 14.8h6.8z" stroke="#b8974a" stroke-width="1.2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3 class="service-title">Optimasi Citra Profesional</h3>
+      <p class="service-desc">Memperkuat narasi positif klien secara organik sehingga profil profesional—LinkedIn, portofolio, atau situs resmi—menjadi hal pertama yang ditemukan publik saat mencari nama Anda.</p>
+      <div class="service-tag">SEO Reputasi · Presence Building</div>
+    </div>
+
+    <div class="service-card reveal reveal-delay-4">
+      <div class="service-number">04</div>
+      <div class="service-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 8v6M20 26v6M8 20h6M26 20h6" stroke="#b8974a" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="6" stroke="#b8974a" stroke-width="1.2"/>
+          <circle cx="20" cy="20" r="2" fill="#b8974a" opacity="0.5"/>
+        </svg>
+      </div>
+      <h3 class="service-title">Manajemen Krisis Digital</h3>
+      <p class="service-desc">Respons cepat dan taktis untuk menangani gejolak reputasi: ulasan negatif massal, konten viral yang merugikan, atau serangan terkoordinasi terhadap kredibilitas institusi Anda.</p>
+      <div class="service-tag">72h Response · Crisis Containment</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider">
+  <div class="divider-line"></div>
+  <div class="divider-mark">Filosofi Kami</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- ─── WHY REFINEID ─── -->
+<section id="mengapa" class="why-section">
+  <div class="reveal">
+    <div class="section-eyebrow">Mengapa RefineID</div>
+    <h2 class="section-title">Bukan penghapus jejak.<br><em>Pengawal reputasi.</em></h2>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-left reveal">
+      <div class="philosophy-block">
+        <div class="philosophy-text">
+          "Masa lalu digital tidak seharusnya menjadi penghambat bagi masa depan. Kami adalah kurator yang memastikan narasi Anda bercerita tentang siapa Anda hari ini."
+        </div>
+        <div class="philosophy-attr">— Filosofi RefineID</div>
+      </div>
+
+      <div style="margin-top: 32px; padding: 32px; border: 1px solid var(--border-dim); border-radius: 2px;">
+        <div class="section-eyebrow" style="margin-bottom:12px; font-size:0.58rem;">Komitmen Kami</div>
+        <p style="font-size:0.88rem; line-height:1.8; color:var(--text-secondary); font-weight:300;">
+          Setiap proyek kami dimulai dan diakhiri dengan kerahasiaan penuh. Tidak ada satu pun detail klien yang dibagikan, disimpan secara tidak perlu, atau digunakan sebagai referensi publik tanpa persetujuan eksplisit.
+        </p>
+      </div>
+    </div>
+
+    <div class="why-pillars">
+      <div class="pillar reveal reveal-delay-1">
+        <div class="pillar-num">i.</div>
+        <div>
+          <div class="pillar-title">Pendekatan Humanis</div>
+          <div class="pillar-desc">Kami tidak menggunakan bot, scraper ilegal, atau teknik hacking. Strategi kami berbasis kebijakan platform, analisis konteks manusia, dan komunikasi persuasif yang etis.</div>
+        </div>
+      </div>
+      <div class="pillar reveal reveal-delay-2">
+        <div class="pillar-num">ii.</div>
+        <div>
+          <div class="pillar-title">Kerahasiaan Mutlak</div>
+          <div class="pillar-desc">Kepercayaan klien adalah aset kami yang paling berharga. RefineID menjamin privasi penuh dalam setiap tahapan—dari audit awal hingga laporan akhir dan seterusnya.</div>
+        </div>
+      </div>
+      <div class="pillar reveal reveal-delay-3">
+        <div class="pillar-num">iii.</div>
+        <div>
+          <div class="pillar-title">Berbasis Data & Strategi</div>
+          <div class="pillar-desc">Tidak ada tindakan yang kami lakukan tanpa dasar audit data. Setiap langkah dirancang untuk dampak yang permanen—bukan perbaikan kosmetik yang sementara.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── AUDIENCE ─── -->
+<section id="klien" class="audience-section" style="max-width:100%; padding: 120px 60px;">
+  <div style="max-width:1400px; margin:0 auto;">
+    <div class="reveal">
+      <div class="section-eyebrow">Target Klien</div>
+      <h2 class="section-title">Kami melayani siapa yang<br>peduli pada <em>nama</em> mereka.</h2>
+      <p class="section-body">Reputasi bukan hanya milik selebriti atau politisi. Di era digital, setiap nama adalah merek—dan setiap merek layak untuk dilindungi.</p>
+    </div>
+
+    <div class="audience-grid">
+      <div class="audience-card reveal reveal-delay-1">
+        <span class="audience-icon">◎</span>
+        <h3 class="audience-title">Perorangan</h3>
+        <p class="audience-desc">Individu yang ingin memulai lembaran baru, melindungi privasi, atau membersihkan jejak masa lalu yang tidak lagi mencerminkan siapa mereka sekarang.</p>
+        <div class="audience-tags">
+          <span class="tag">Privasi Digital</span>
+          <span class="tag">Fresh Start</span>
+          <span class="tag">Proteksi Identitas</span>
+        </div>
+      </div>
+
+      <div class="audience-card reveal reveal-delay-2">
+        <span class="audience-icon">◈</span>
+        <h3 class="audience-title">Profesional</h3>
+        <p class="audience-desc">Eksekutif, pelamar kerja, dan praktisi karier yang sadar bahwa rekam jejak online adalah "CV kedua" yang dibaca perekrut, klien, dan mitra bisnis.</p>
+        <div class="audience-tags">
+          <span class="tag">C-Level</span>
+          <span class="tag">Job Seeker</span>
+          <span class="tag">LinkedIn Optimization</span>
+        </div>
+      </div>
+
+      <div class="audience-card reveal reveal-delay-3">
+        <span class="audience-icon">◇</span>
+        <h3 class="audience-title">Institusi</h3>
+        <p class="audience-desc">UMKM, brand, dan organisasi yang membutuhkan perlindungan reputasi di tengah ketatnya persaingan digital dan ancaman ulasan negatif yang terorganisir.</p>
+        <div class="audience-tags">
+          <span class="tag">Brand Protection</span>
+          <span class="tag">UMKM</span>
+          <span class="tag">Krisis Management</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESS ─── -->
+<section id="proses">
+  <div class="reveal">
+    <div class="section-eyebrow">Proses Kerja</div>
+    <h2 class="section-title">Transparan dari<br><em>awal</em> hingga <em>akhir</em>.</h2>
+    <p class="section-body">Kami percaya klien berhak memahami setiap langkah yang kami ambil atas nama mereka.</p>
+  </div>
+
+  <div class="process-timeline">
+    <div class="process-step reveal reveal-delay-1">
+      <div class="step-marker">
+        <div class="step-num">1</div>
+        <div class="step-line"></div>
+      </div>
+      <div>
+        <div class="step-title">Konsultasi Awal & Perjanjian Kerahasiaan</div>
+        <div class="step-desc">Sesi 30–60 menit untuk memahami situasi klien. Tidak ada data yang dikumpulkan sebelum NDA ditandatangani. Konsultasi pertama gratis.</div>
+      </div>
+    </div>
+
+    <div class="process-step reveal reveal-delay-2">
+      <div class="step-marker">
+        <div class="step-num">2</div>
+        <div class="step-line"></div>
+      </div>
+      <div>
+        <div class="step-title">Audit Digital Menyeluruh</div>
+        <div class="step-desc">Tim kami melakukan deep-scan terhadap seluruh jejak digital klien. Hasilnya didokumentasikan dalam Laporan Audit komprehensif dengan skor reputasi dan peta risiko.</div>
+      </div>
+    </div>
+
+    <div class="process-step reveal reveal-delay-3">
+      <div class="step-marker">
+        <div class="step-num">3</div>
+        <div class="step-line"></div>
+      </div>
+      <div>
+        <div class="step-title">Rencana Tindak Berbasis Prioritas</div>
+        <div class="step-desc">Kami menyusun roadmap perbaikan yang diprioritaskan berdasarkan dampak dan urgensi—klien menyetujui setiap langkah sebelum eksekusi dimulai.</div>
+      </div>
+    </div>
+
+    <div class="process-step reveal reveal-delay-4">
+      <div class="step-marker">
+        <div class="step-num">4</div>
+        <div class="step-line"></div>
+      </div>
+      <div>
+        <div class="step-title">Eksekusi & Monitoring Berkelanjutan</div>
+        <div class="step-desc">Implementasi strategi dengan laporan progres rutin. Kami memantau perubahan secara aktif dan melakukan penyesuaian taktis jika diperlukan.</div>
+      </div>
+    </div>
+
+    <div class="process-step reveal">
+      <div class="step-marker">
+        <div class="step-num">5</div>
+      </div>
+      <div>
+        <div class="step-title">Laporan Final & Pemeliharaan Opsional</div>
+        <div class="step-desc">Laporan akhir dengan perbandingan sebelum/sesudah yang terukur. Paket pemeliharaan tersedia untuk menjaga reputasi tetap optimal jangka panjang.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<section id="konsultasi" class="cta-section" style="max-width:100%;">
+  <div style="max-width:1400px; margin:0 auto;">
+    <div class="section-eyebrow reveal" style="justify-content:center;">Mulai Sekarang</div>
+    <h2 class="section-title reveal">Ketika dunia mencari nama Anda,<br>apa yang akan <em>mereka temukan</em>?</h2>
+    <p class="section-body reveal">Konsultasi pertama gratis. Tidak ada komitmen, tidak ada tekanan—hanya percakapan jujur tentang situasi reputasi digital Anda saat ini.</p>
+
+    <div style="display:flex; flex-direction:column; align-items:center; gap:24px;" class="reveal">
+      <a href="#" class="btn-primary" style="font-size:0.75rem; padding:18px 52px;"><span>Jadwalkan Konsultasi Gratis</span></a>
+      <div style="font-family:'DM Mono', monospace; font-size:0.62rem; color:var(--text-muted); letter-spacing:0.15em;">atau hubungi kami di</div>
+      <a href="mailto:halo@refineid.id" class="cta-email">halo@refineid.id</a>
+      <div class="cta-note">Kerahasiaan dijamin · Tidak ada komitmen awal · Respons dalam 24 jam</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Refine<span>ID</span></div>
+      <p class="footer-tagline">Memurnikan identitas digital Anda agar mencerminkan versi terbaik dan paling profesional dari siapa Anda hari ini.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Layanan</div>
+      <ul class="footer-links">
+        <li><a href="#layanan">Audit Reputasi Digital</a></li>
+        <li><a href="#layanan">Pembersihan & Kurasi</a></li>
+        <li><a href="#layanan">Optimasi Citra Profesional</a></li>
+        <li><a href="#layanan">Manajemen Krisis Digital</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Perusahaan</div>
+      <ul class="footer-links">
+        <li><a href="#mengapa">Filosofi</a></li>
+        <li><a href="#proses">Proses Kerja</a></li>
+        <li><a href="#klien">Klien</a></li>
+        <li><a href="#konsultasi">Konsultasi</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 RefineID · Semua Hak Dilindungi</div>
+    <div class="footer-philosophy">"Refine your identity, own your narrative."</div>
+  </div>
+</footer>
+
+<script>
+// ─── CURSOR ───
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+
+function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  cursorRing.style.left = rx + 'px';
+  cursorRing.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+document.querySelectorAll('a, button, .service-card, .audience-card, .pillar').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); cursorRing.classList.add('hover'); });
+  el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); cursorRing.classList.remove('hover'); });
+});
+
+// ─── NAVBAR ───
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ─── SCROLL REVEAL ───
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+reveals.forEach(el => observer.observe(el));
+
+// ─── SCAN CARD ANIMATION ───
+const scanItems = document.querySelectorAll('.scan-item');
+scanItems.forEach((item, i) => {
+  item.style.opacity = '0';
+  item.style.transform = 'translateX(20px)';
+  setTimeout(() => {
+    item.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+    item.style.opacity = '1';
+    item.style.transform = 'translateX(0)';
+  }, 1200 + i * 180);
+});
+
+// ─── SMOOTH SCROLL ───
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
