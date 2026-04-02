@@ -961,13 +961,13 @@ section {
 }
 
 .power-boost {
-  position: sticky;
-  top: 94px;
-  right: 20px;
+  position: fixed;
+  top: 86px;
+  right: 18px;
   padding: 9px 12px;
-  background: rgba(10,10,15,0.92);
+  background: rgba(10,10,15,0.95);
   border: 1px solid rgba(255,255,255,0.14);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
   border-radius: 6px;
   font-family: 'DM Mono', monospace;
   font-size: 0.64rem;
@@ -975,8 +975,23 @@ section {
   text-transform: uppercase;
   color: var(--text-muted);
   max-width: 240px;
+  z-index: 98;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+.power-boost.visible {
+  opacity: 0.94;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 .power-boost strong { color: var(--gold); }
+
+@media (max-width: 1024px) {
+  .power-boost { display: none !important; }
+}
+
 
 .trusted-section, .testimonials-section, .metrics-section { padding-top: 80px; padding-bottom: 80px; }
 .trusted-grid, .testimonials-grid, .metrics-grid { display: grid; gap: 18px; margin-top: 32px; }
@@ -1748,8 +1763,17 @@ document.querySelectorAll('a, button, .service-card, .audience-card, .pillar').f
 
 // ─── NAVBAR ───
 const navbar = document.getElementById('navbar');
+const powerBoost = document.querySelector('.power-boost');
 window.addEventListener('scroll', () => {
+  const atTop = window.scrollY < 120;
   navbar.classList.toggle('scrolled', window.scrollY > 60);
+  if (powerBoost) {
+    if (atTop) {
+      powerBoost.classList.remove('visible');
+    } else {
+      powerBoost.classList.add('visible');
+    }
+  }
 });
 
 // ─── SCROLL REVEAL ───
