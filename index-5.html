@@ -1,0 +1,2744 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="RefineID: layanan konsultasi reputasi digital eksklusif. Audit, pembersihan, dan optimasi nama Anda dengan kerahasiaan penuh.">
+<meta property="og:title" content="RefineID — Elite Reputasi Digital" />
+<meta property="og:description" content="Hasil nyata, rahasia klien terjaga. Premium reputasi management for executives and high-profile individuals." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://refineid.id" />
+<meta property="og:image" content="https://refineid.id/og-image.jpg" />
+<title>RefineID — Elite Reputasi Digital & Konsultasi Privat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Outfit:wght@200;300;400&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #0a0a0f;
+  --ink-soft: #111118;
+  --paper: #f5f2ec;
+  --paper-warm: #ede9e0;
+  --gold: #b8974a;
+  --gold-light: #d4b06a;
+  --gold-dim: rgba(184,151,74,0.15);
+  --silver: #8a8a96;
+  --silver-light: #c4c4cc;
+  --cream: #f9f6f0;
+  --accent: #1a1a2e;
+  --text-primary: #e8e4dc;
+  --text-secondary: #9a9690;
+  --text-muted: #5a5650;
+  --border: rgba(184,151,74,0.2);
+  --border-dim: rgba(255,255,255,0.06);
+  --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 110px;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  background: var(--ink);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom Cursor */
+.cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 10px; height: 10px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, width 0.3s var(--transition), height 0.3s var(--transition), opacity 0.3s;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 36px; height: 36px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s var(--transition), width 0.4s var(--transition), height 0.4s var(--transition), opacity 0.4s, border-color 0.3s;
+  opacity: 0.5;
+}
+.cursor.hover { width: 20px; height: 20px; }
+.cursor-ring.hover { width: 60px; height: 60px; opacity: 0.3; border-color: var(--gold-light); }
+
+/* Noise Texture Overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.35;
+}
+
+/* ─── NAVIGATION ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 28px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.4s, background 0.4s, padding 0.4s;
+}
+nav.scrolled {
+  border-color: var(--border-dim);
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(20px);
+  padding: 18px 60px;
+}
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
+  text-decoration: none;
+  position: relative;
+}
+.nav-logo span { color: var(--gold); }
+.nav-logo::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.4s var(--transition);
+}
+.nav-logo:hover::after { width: 100%; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s var(--transition);
+}
+.nav-links a:hover { color: var(--text-primary); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold) !important;
+  border: 1px solid var(--border);
+  padding: 10px 22px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.3s var(--transition) !important;
+  background: transparent;
+}
+.nav-cta:hover {
+  background: var(--gold-dim) !important;
+  border-color: var(--gold) !important;
+  color: var(--gold-light) !important;
+}
+.nav-cta::after { display: none !important; }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 140px 60px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(184,151,74,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 80% at 10% 80%, rgba(26,26,46,0.6) 0%, transparent 60%);
+}
+
+.hero-line {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--border), transparent);
+  opacity: 0.4;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 64px;
+  align-items: start;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure hero left column stacks its children cleanly */
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeSlideUp 0.9s 0.3s var(--transition) forwards;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 40px; height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4.5vw, 5.2rem);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+  width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  opacity: 0;
+  animation: fadeSlideUp 1s 0.5s var(--transition) forwards;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 300;
+}
+
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 3.5vw, 3.8rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeSlideUp 1s 0.65s var(--transition) forwards;
+}
+
+.hero-desc {
+  font-size: clamp(0.95rem, 1.0vw, 1.1rem);
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 650px;
+  margin-bottom: 40px;
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeSlideUp 1s 0.8s var(--transition) forwards;
+  word-break: break-word;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 28px;
+  opacity: 0;
+  animation: fadeSlideUp 1s 1s var(--transition) forwards;
+}
+
+.btn-primary {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: var(--gold);
+  color: var(--ink);
+  padding: 16px 36px;
+  border-radius: 2px;
+  text-decoration: none;
+  font-weight: 400;
+  transition: all 0.35s var(--transition);
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold-light);
+  transform: translateX(-100%);
+  transition: transform 0.4s var(--transition);
+}
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary span { position: relative; z-index: 1; }
+
+.btn-ghost {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  padding: 16px 36px;
+  border-radius: 2px;
+  text-decoration: none;
+  border: 1px solid var(--border-dim);
+  transition: all 0.35s var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-ghost:hover {
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+/* Hero Right Panel */
+.hero-right {
+  position: relative;
+  opacity: 0;
+  animation: fadeIn 1.4s 0.9s var(--transition) forwards;
+}
+
+.hero-scan-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  min-width: 280px;
+  transition: border-color 0.4s;
+}
+.hero-scan-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+}
+.scan-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.scan-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.scan-dot {
+  width: 6px; height: 6px;
+  background: #4ade80;
+  border-radius: 50%;
+  animation: pulse-green 2s infinite;
+}
+.scan-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.scan-title-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  font-weight: 300;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.1em;
+}
+
+/* ── STATE 0: INPUT ── */
+.scan-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--border);
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--gold-dim);
+}
+.sim-intro { margin: 20px 0 22px; }
+.sim-intro-text {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+.sim-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sim-name-input, .sim-select {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  padding: 12px 14px;
+  color: var(--text-primary);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.sim-name-input::placeholder { color: var(--text-muted); }
+.sim-name-input:focus, .sim-select:focus { border-color: var(--gold); }
+.sim-select { cursor: pointer; }
+.sim-select option { background: #111118; color: var(--text-primary); }
+
+.sim-run-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 20px;
+  background: var(--gold);
+  color: var(--ink);
+  border: none;
+  border-radius: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: 400;
+  transition: all 0.3s var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.sim-run-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold-light);
+  transform: translateX(-100%);
+  transition: transform 0.4s var(--transition);
+}
+.sim-run-btn:hover::before { transform: translateX(0); }
+.sim-run-btn > * { position: relative; z-index: 1; }
+.sim-disclaimer {
+  margin-top: 14px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.57rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* ── STATE 1: SCANNING ── */
+.scan-status-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: #4ade80;
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+}
+.scan-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 18px 0 14px;
+}
+.scan-progress-bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.scan-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(to right, var(--gold), var(--gold-light));
+  border-radius: 4px;
+  transition: width 0.35s ease;
+}
+.scan-progress-pct {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--gold);
+  min-width: 32px;
+  text-align: right;
+}
+.scan-log {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+  min-height: 120px;
+}
+.scan-log-line {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.63rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  padding: 5px 10px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.02);
+  border-left: 2px solid transparent;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: all 0.35s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.scan-log-line.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+.scan-log-line.ok { border-left-color: #4ade80; color: var(--text-secondary); }
+.scan-log-line.warn { border-left-color: #fbbf24; }
+.scan-log-line.risk { border-left-color: #f87171; }
+.scan-log-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.scan-log-line.ok .scan-log-dot { background: #4ade80; }
+.scan-log-line.warn .scan-log-dot { background: #fbbf24; }
+.scan-log-line.risk .scan-log-dot { background: #f87171; }
+
+/* ── STATE 2: RESULTS ── */
+.scan-timestamp {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+.scan-reset-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-transform: uppercase;
+}
+.scan-reset-btn:hover { color: var(--text-secondary); border-color: rgba(255,255,255,0.18); }
+
+.result-identity { margin: 16px 0 18px; }
+.result-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+.result-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+/* Score ring */
+.result-score-block {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 0;
+  border-top: 1px solid var(--border-dim);
+  border-bottom: 1px solid var(--border-dim);
+  margin-bottom: 18px;
+}
+.score-ring-wrap {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  flex-shrink: 0;
+}
+.score-ring {
+  width: 84px;
+  height: 84px;
+  transform: rotate(-90deg);
+}
+.score-ring-bg {
+  fill: none;
+  stroke: rgba(255,255,255,0.06);
+  stroke-width: 8;
+}
+.score-ring-fill {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 251.2;
+  stroke-dashoffset: 251.2;
+  transition: stroke-dashoffset 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), stroke 0.6s;
+}
+.score-ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.score-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1;
+}
+.score-denom {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+.score-meta { flex: 1; min-width: 0; }
+.score-verdict {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+.score-urgency {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.score-risk-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.risk-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+.risk-tag.critical { color: #f87171; background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.25); }
+.risk-tag.warning  { color: #fbbf24; background: rgba(251,191,36,0.1);  border: 1px solid rgba(251,191,36,0.25); }
+.risk-tag.safe     { color: #4ade80; background: rgba(74,222,128,0.1);   border: 1px solid rgba(74,222,128,0.25); }
+
+/* Category bars */
+.result-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.cat-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 42px;
+  align-items: center;
+  gap: 10px;
+}
+.cat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cat-bar {
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.cat-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  width: 0%;
+  transition: width 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.cat-score {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-secondary);
+  text-align: right;
+}
+
+/* Findings */
+.result-findings { margin-bottom: 14px; }
+.findings-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.findings-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.findings-list li {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+  line-height: 1.5;
+  padding-left: 14px;
+  position: relative;
+}
+.findings-list li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+/* Recommendation */
+.result-recommendation {
+  padding: 14px 16px;
+  background: rgba(184,151,74,0.06);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  font-weight: 300;
+  margin-bottom: 18px;
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+}
+
+.result-cta-btn {
+  display: block;
+  text-align: center;
+  padding: 13px 20px;
+  background: var(--gold);
+  color: var(--ink);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 400;
+  transition: all 0.3s var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.result-cta-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold-light);
+  transform: translateX(-100%);
+  transition: transform 0.4s var(--transition);
+}
+.result-cta-btn:hover::before { transform: translateX(0); }
+.result-cta-btn span { position: relative; z-index: 1; }
+
+.hero-stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 0;
+  width: 100%;
+}
+.hero-stat {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 18px;
+  border-radius: 6px;
+  text-align: center;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s var(--transition) forwards;
+}
+.hero-stat:nth-child(1) { animation-delay: 1.2s; }
+.hero-stat:nth-child(2) { animation-delay: 1.35s; }
+.hero-stat:nth-child(3) { animation-delay: 1.5s; }
+.hero-stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.hero-stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* ─── DIVIDER ─── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 60px;
+  margin: 0 auto;
+  max-width: 1400px;
+}
+.divider-line { flex: 1; height: 1px; background: var(--border-dim); }
+.divider-mark {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* ─── SECTIONS ─── */
+section {
+  padding: 4rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  scroll-margin-top: 110px;
+  position: relative;
+  min-height: auto;
+}
+
+@media (min-width: 768px) {
+  section {
+    padding: 5.5rem 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  section {
+    padding: 6.5rem 3.5rem;
+  }
+}
+
+.trusted-section, .testimonials-section {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  margin-top: 24px;
+  padding-top: 80px;
+}
+
+.trusted-grid, .testimonials-grid {
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+}
+
+.section-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.section-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 30px; height: 1px;
+  background: var(--gold);
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+.section-title em { font-style: italic; color: var(--gold); }
+
+.section-body {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+  font-weight: 300;
+  max-width: 600px;
+}
+
+/* ─── SERVICES ─── */
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-top: 80px;
+}
+
+.service-card {
+  padding: 52px 48px;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid var(--border-dim);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s var(--transition);
+  cursor: default;
+  min-height: 245px;
+  word-break: break-word;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--gold), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--transition);
+}
+.service-card:hover::before { transform: scaleX(1); }
+.service-card:hover { background: rgba(184,151,74,0.04); }
+
+.service-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: rgba(184,151,74,0.15);
+  position: absolute;
+  top: 28px; right: 40px;
+  line-height: 1;
+  font-style: italic;
+  transition: color 0.4s;
+}
+.service-card:hover .service-number { color: rgba(184,151,74,0.3); }
+
+.service-icon {
+  width: 40px; height: 40px;
+  margin-bottom: 28px;
+  opacity: 0.8;
+}
+.service-icon svg { width: 100%; height: 100%; }
+
+.service-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.service-desc {
+  font-size: 0.92rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.service-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.service-tag::before {
+  content: '';
+  display: inline-block;
+  width: 20px; height: 1px;
+  background: var(--gold);
+}
+
+/* ─── WHY REFINEID ─── */
+.why-section { position: relative; }
+
+.why-section::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 80px; bottom: 80px;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--border), transparent);
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  margin-top: 80px;
+}
+
+.why-left { position: relative; }
+.philosophy-block {
+  padding: 52px;
+  background: rgba(184,151,74,0.04);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  position: relative;
+}
+.philosophy-block::before {
+  content: '"';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 8rem;
+  color: rgba(184,151,74,0.1);
+  position: absolute;
+  top: -20px; left: 32px;
+  line-height: 1;
+}
+.philosophy-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+.philosophy-attr {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.why-pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.pillar {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border-dim);
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  transition: all 0.3s;
+}
+.pillar:hover { padding-left: 12px; }
+.pillar:last-child { border-bottom: none; }
+.pillar-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--gold);
+  opacity: 0.7;
+  min-width: 24px;
+  margin-top: 3px;
+}
+.pillar-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.pillar-desc {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+/* ─── AUDIENCE ─── */
+.audience-section {
+  background: linear-gradient(135deg, rgba(26,26,46,0.5) 0%, rgba(10,10,15,0) 100%);
+  border-top: 1px solid var(--border-dim);
+  border-bottom: 1px solid var(--border-dim);
+  max-width: 100%;
+  padding: 100px 60px;
+}
+.audience-section-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 80px;
+}
+
+.audience-card {
+  padding: 48px 40px;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid var(--border-dim);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.4s;
+}
+.audience-card:hover { background: rgba(255,255,255,0.03); }
+
+.audience-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 40px; right: 40px;
+  height: 1px;
+  background: linear-gradient(to right, var(--gold), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--transition);
+}
+.audience-card:hover::after { transform: scaleX(1); }
+
+.audience-icon {
+  font-size: 1.8rem;
+  margin-bottom: 28px;
+  display: block;
+}
+
+.audience-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.audience-desc {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.audience-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+.tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  border: 1px solid var(--border-dim);
+  padding: 5px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+.audience-card:hover .tag { border-color: var(--border); color: var(--text-secondary); }
+
+/* ─── PROCESS ─── */
+.process-section { position: relative; }
+
+.process-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 80px;
+  max-width: 800px;
+}
+
+.process-step {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 32px;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--border-dim);
+  position: relative;
+}
+.process-step:last-child { border-bottom: none; }
+
+.step-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.step-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--gold);
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(184,151,74,0.05);
+  flex-shrink: 0;
+}
+.step-line {
+  flex: 1;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--border), transparent);
+  margin-top: 8px;
+}
+.process-step:last-child .step-line { display: none; }
+
+.step-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  padding-top: 4px;
+}
+.step-desc {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+/* ─── CTA SECTION ─── */
+.cta-section {
+  text-align: center;
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 50%, rgba(184,151,74,0.06) 0%, transparent 70%),
+    linear-gradient(180deg, transparent, rgba(26,26,46,0.3), transparent);
+  border-top: 1px solid var(--border-dim);
+  border-bottom: 1px solid var(--border-dim);
+  padding: 120px 60px;
+  max-width: 100%;
+}
+.cta-section-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.cta-section .section-eyebrow { justify-content: center; }
+.cta-section .section-title { text-align: center; margin-bottom: 20px; }
+.cta-section .section-body { margin: 0 auto 40px; text-align: center; max-width: 560px; }
+
+.cta-email {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 4px;
+  transition: border-color 0.3s;
+}
+.cta-email:hover { border-color: var(--gold); }
+
+.cta-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-top: 24px;
+  text-transform: uppercase;
+}
+
+.elite-signals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin-top: 24px;
+  width: 100%;
+}
+.elite-signals span {
+  font-family: 'DM Mono', monospace;
+  color: var(--text-secondary);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.elite-signals strong {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--gold);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.service-card .quick-cta {
+  margin-top: 20px;
+  display: inline-block;
+  padding: 8px 14px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(184,151,74,0.28);
+  background: rgba(184,151,74,0.12);
+  border-radius: 999px;
+  transition: transform 0.28s var(--transition), box-shadow 0.28s var(--transition);
+  text-decoration: none;
+}
+.service-card .quick-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+.power-boost {
+  position: fixed;
+  top: 116px;
+  right: 18px;
+  padding: 9px 12px;
+  background: rgba(10,10,15,0.95);
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(10px);
+  border-radius: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  max-width: 240px;
+  z-index: 98;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+.power-boost.visible {
+  opacity: 0.94;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.power-boost strong { color: var(--gold); }
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,10,15,0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 140;
+  transition: opacity 0.25s ease;
+}
+.modal-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-window {
+  width: min(560px, 92vw);
+  background: rgba(8,8,13,0.96);
+  border: 1px solid rgba(184,151,74,0.25);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 26px 42px rgba(0,0,0,0.46);
+}
+.modal-window h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.42rem;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.modal-window .modal-description {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+}
+.modal-detail {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text-primary);
+  margin-bottom: 9px;
+}
+.modal-detail strong { color: var(--gold); margin-right: 8px; }
+.modal-actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+@media (max-width: 1024px) {
+  .power-boost { display: none !important; }
+  .modal-window { width: 92vw; }
+}
+
+.trusted-section, .testimonials-section, .metrics-section { padding-top: 80px; padding-bottom: 80px; }
+.trusted-grid, .testimonials-grid, .metrics-grid { display: grid; gap: 18px; margin-top: 32px; }
+.trusted-grid { grid-template-columns: repeat(3, minmax(220px, 1fr)); }
+.testimonials-grid { grid-template-columns: repeat(2, minmax(260px, 1fr)); }
+.metrics-grid { grid-template-columns: repeat(3, minmax(140px, 1fr)); }
+.case-card, .testimonial-card, .metric-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border-dim);
+  border-radius: 6px;
+  padding: 26px;
+  transition: transform 0.4s var(--transition), box-shadow 0.4s var(--transition), border-color 0.4s;
+}
+.case-card:hover, .testimonial-card:hover, .metric-card:hover { transform: translateY(-4px); border-color: rgba(184,151,74,0.35); box-shadow: 0 14px 30px rgba(0,0,0,0.17); }
+.case-card h4, .metric-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--gold); margin-bottom: 10px; }
+.case-card p, .testimonial-card p, .metric-card p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
+.case-card ul { margin: 10px 0 0 18px; color: var(--text-secondary); }
+.case-card ul li { margin-bottom: 6px; }
+.testimonial-card blockquote { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--text-primary); font-style: italic; line-height: 1.5; margin-bottom: 12px; }
+.testimonial-card .source { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.14em; color: var(--text-muted); text-transform: uppercase; }
+.metric-card { text-align: center; }
+.metric-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--gold); margin-bottom: 4px; }
+.metric-card span { display: block; font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; }
+
+.insight-section { 
+  padding: 80px 60px;
+  background: rgba(255,255,255,0.02);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  max-width: 100%;
+}
+.insight-grid { display: grid; gap: 18px; grid-template-columns: repeat(3,minmax(180px,1fr)); margin-top: 26px; }
+.insight-card { background: rgba(255,255,255,0.01); border:1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 20px; }
+.insight-card h4 { font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--gold); margin-bottom: 10px; }
+.insight-card .progress-label { font-family:'DM Mono', monospace; font-size:0.65rem; color:var(--text-muted); letter-spacing:0.18em; text-transform:uppercase; margin-bottom:8px; }
+.insight-card .progress-bar { height: 6px; width: 100%; background: rgba(255,255,255,0.08); border-radius: 4px; overflow:hidden; }
+.insight-card .progress-fill { width: 0; height:100%; border-radius:4px; background: linear-gradient(90deg,var(--gold),var(--gold-light)); transition: width 1.2s var(--transition); }
+.live-feed { margin-top: 14px; font-family:'DM Mono',monospace; font-size:0.66rem; color:var(--text-muted); letter-spacing:0.15em; text-transform:uppercase; background: rgba(26,26,46,0.45); border:1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 11px 12px; }
+
+@media (max-width: 1024px) {
+  .insight-grid { grid-template-columns: 1fr; }
+}
+
+.exclusivity-note { margin-top: 14px; font-family: 'DM Mono', monospace; font-size: 0.66rem; letter-spacing: 0.12em; color: var(--text-muted); text-transform: uppercase; }
+.simulator-input { width: calc(100% - 146px); max-width: 220px; border: 1px solid var(--border-dim); background: rgba(255,255,255,0.03); color: var(--text-primary); padding: 9px 10px; border-radius: 3px; font-size: 0.85rem; margin-right: 10px; }
+.simulator-btn { background: var(--gold); color: var(--ink); border: 1px solid rgba(184,151,74,0.45); padding: 10px 14px; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; border-radius: 3px; cursor: pointer; transition: all 0.3s var(--transition); }
+.simulator-btn:hover { transform: translateY(-2px); }
+.sticky-cta { position: fixed; right: 18px; bottom: 18px; background: rgba(184,151,74,0.94); color: #0a0a0f; padding: 10px 14px; border-radius: 999px; font-family: 'DM Mono', monospace; font-size:0.65rem; letter-spacing:0.22em; text-transform: uppercase; text-decoration: none; z-index: 999; box-shadow: 0 10px 22px rgba(0,0,0,0.25); opacity: 0.94; transition: transform 0.25s, opacity 0.25s; }
+.sticky-cta:hover { transform: translateY(-2px); opacity:1; }
+@media (max-width: 1024px) {
+  .trusted-grid, .testimonials-grid, .metrics-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .cursor, .cursor-ring { display: none !important; }
+  .hero-actions { flex-direction: column; }
+  .simulator-input { width: 100%; margin:0 0 10px 0; }
+  .simulator-btn { width: 100%; }
+  .sticky-cta { display: none; }
+}
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 60px 60px 40px;
+  border-top: 1px solid var(--border-dim);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 80px;
+  margin-bottom: 60px;
+}
+
+.footer-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+.footer-brand span { color: var(--gold); }
+.footer-tagline {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  font-weight: 300;
+  max-width: 280px;
+}
+
+.footer-col-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.footer-links a {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s;
+  font-weight: 300;
+}
+.footer-links a:hover { color: var(--text-secondary); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-dim);
+}
+.footer-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+}
+.footer-philosophy {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulse-green {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s var(--transition), transform 0.8s var(--transition);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ─── MARQUEE ─── */
+.marquee-wrap {
+  overflow: hidden;
+  border-top: 1px solid var(--border-dim);
+  border-bottom: 1px solid var(--border-dim);
+  padding: 20px 0;
+  background: rgba(184,151,74,0.02);
+}
+.marquee-track {
+  display: flex;
+  gap: 0;
+  animation: marquee 30s linear infinite;
+  white-space: nowrap;
+}
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 40px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.marquee-item::after {
+  content: '·';
+  margin-left: 40px;
+  color: var(--gold);
+  opacity: 0.5;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1100px) {
+  nav { padding: 22px 32px; }
+  nav.scrolled { padding: 16px 32px; }
+  .hero { padding: 130px 40px 80px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 52px; }
+  .hero-line { display: none; }
+  .hero-title { font-size: clamp(2.4rem, 6vw, 4rem); }
+  .hero-right { max-width: 540px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; gap: 40px; }
+  .audience-grid { grid-template-columns: 1fr; }
+  .audience-section { padding: 80px 40px; }
+  .insight-section { padding: 60px 40px; }
+  .insight-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .section-divider { padding: 0 32px; }
+  .trusted-grid, .testimonials-grid, .metrics-grid { grid-template-columns: 1fr; }
+  .power-boost { display: none !important; }
+  .modal-window { width: 92vw; }
+}
+
+@media (max-width: 640px) {
+  nav { padding: 16px 20px; }
+  nav.scrolled { padding: 12px 20px; }
+  .nav-links { display: none; }
+
+  .hero { padding: 100px 20px 60px; min-height: auto; }
+  .hero-grid { gap: 40px; }
+  .hero-title { font-size: clamp(2rem, 8vw, 3rem); }
+  .hero-subtitle { font-size: clamp(1.4rem, 5vw, 2rem); }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-ghost { text-align: center; justify-content: center; }
+  .elite-signals { flex-direction: column; gap: 6px; }
+  .elite-signals span { white-space: normal; }
+  .hero-stat-row { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .hero-stat { padding: 12px 8px; }
+  .hero-stat-num { font-size: 1.6rem; }
+  .hero-stat-label { font-size: 0.5rem; }
+  .hero-scan-card { padding: 20px 16px; }
+  .scan-name { font-size: 1.6rem; }
+
+  section { padding: 60px 20px; }
+  .service-card { padding: 36px 24px; }
+  .service-number { font-size: 2.5rem; top: 16px; right: 20px; }
+
+  .audience-section { padding: 60px 20px; }
+  .audience-card { padding: 32px 24px; }
+
+  .insight-section { padding: 60px 20px; }
+  .insight-grid { grid-template-columns: 1fr; }
+
+  .cta-section { padding: 80px 20px; }
+
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  footer { padding: 48px 20px 28px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+
+  .section-divider { padding: 0 20px; }
+  .sticky-cta { display: none; }
+  .cursor, .cursor-ring { display: none !important; }
+  body { cursor: auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ─── NAVIGATION ─── -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Refine<span>ID</span></a>
+  <ul class="nav-links">
+    <li><a href="#layanan">Layanan</a></li>
+    <li><a href="#mengapa">Mengapa Kami</a></li>
+    <li><a href="#klien">Klien</a></li>
+    <li><a href="#proses">Proses</a></li>
+    <li><a href="#konsultasi" class="nav-cta">Konsultasi Gratis</a></li>
+  </ul>
+</nav>
+<div class="power-boost reveal">Powerful: 76% visitor converting into consult inquiry ketika CTA internal terbuka</div>
+
+<!-- ─── HERO ─── -->
+<div class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Kurator Reputasi Digital</div>
+      <h1 class="hero-title">
+        Identitas yang<br><em>Lebih Baik</em><br>dari Masa Lalu
+      </h1>
+      <p class="hero-subtitle">dimulai dari sini.</p>
+      <p class="hero-desc">
+        RefineID mengaudit, membersihkan, dan memperkuat jejak digital Anda—sehingga ketika dunia mencari nama Anda, mereka menemukan versi terbaik dari siapa Anda sebenarnya.
+      </p>
+      <div class="hero-actions">
+        <a href="#konsultasi" class="btn-primary"><span>Mulai Audit Gratis</span></a>
+        <a href="#layanan" class="btn-ghost">
+          Lihat Layanan
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="elite-signals">
+        <span><strong>Hanya 4% calon diterima</strong></span>
+        <span><strong>90 hari rata2 closing</strong></span>
+        <span><strong>Private case-by-case</strong></span>
+      </div>
+
+      <div class="hero-stat-row">
+        <div class="hero-stat">
+          <div class="hero-stat-num">500+</div>
+          <div class="hero-stat-label">Klien Ditangani</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">94%</div>
+          <div class="hero-stat-label">Tingkat Keberhasilan</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">72h</div>
+          <div class="hero-stat-label">Respon Krisis</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-scan-card" id="auditCard">
+
+        <!-- STATE 0: INPUT -->
+        <div id="stateInput">
+          <div class="scan-header">
+            <span class="scan-label">Simulasi Audit Reputasi</span>
+            <span class="scan-badge">Demo</span>
+          </div>
+          <div class="sim-intro">
+            <p class="sim-intro-text">Masukkan nama untuk melihat seperti apa laporan audit reputasi digital RefineID bekerja.</p>
+          </div>
+          <div class="sim-input-group">
+            <input id="simName" class="sim-name-input" placeholder="Nama Lengkap Anda" autocomplete="off" maxlength="40" />
+            <select id="simRole" class="sim-select">
+              <option value="exec">Eksekutif / C-Level</option>
+              <option value="prof">Profesional / Karier</option>
+              <option value="biz">Pemilik Bisnis / Brand</option>
+              <option value="pub">Figur Publik</option>
+            </select>
+            <button id="simBtn" class="sim-run-btn">
+              <span class="sim-btn-text">Jalankan Simulasi Audit</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <div class="sim-disclaimer">Tidak menggunakan data nyata · Hanya visualisasi edukatif</div>
+        </div>
+
+        <!-- STATE 1: SCANNING ANIMATION -->
+        <div id="stateScanning" style="display:none;">
+          <div class="scan-header">
+            <span class="scan-label">Audit Preview</span>
+            <span class="scan-status-live"><span class="scan-dot"></span> <span id="scanStatusText">Menginisialisasi...</span></span>
+          </div>
+          <div class="scan-name" id="scanDisplayName">—</div>
+          <div class="scan-title-label" id="scanDisplayRole">—</div>
+          <div class="scan-progress-wrap">
+            <div class="scan-progress-bar"><div class="scan-progress-fill" id="scanProgressFill"></div></div>
+            <span class="scan-progress-pct" id="scanProgressPct">0%</span>
+          </div>
+          <div class="scan-log" id="scanLog"></div>
+        </div>
+
+        <!-- STATE 2: RESULTS -->
+        <div id="stateResults" style="display:none;">
+          <div class="scan-header">
+            <span class="scan-label">Laporan Audit</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <span class="scan-timestamp" id="resultTimestamp"></span>
+              <button class="scan-reset-btn" id="resetBtn">↺ Ulang</button>
+            </div>
+          </div>
+
+          <div class="result-identity">
+            <div class="result-name" id="resultName"></div>
+            <div class="result-role" id="resultRole"></div>
+          </div>
+
+          <!-- Score ring -->
+          <div class="result-score-block">
+            <div class="score-ring-wrap">
+              <svg class="score-ring" viewBox="0 0 100 100">
+                <circle class="score-ring-bg" cx="50" cy="50" r="40"/>
+                <circle class="score-ring-fill" id="scoreRingFill" cx="50" cy="50" r="40"/>
+              </svg>
+              <div class="score-ring-center">
+                <div class="score-num" id="resultScoreNum">—</div>
+                <div class="score-denom">/100</div>
+              </div>
+            </div>
+            <div class="score-meta">
+              <div class="score-verdict" id="resultVerdict"></div>
+              <div class="score-urgency" id="resultUrgency"></div>
+              <div class="score-risk-tags" id="resultRiskTags"></div>
+            </div>
+          </div>
+
+          <!-- Category breakdown -->
+          <div class="result-categories" id="resultCategories"></div>
+
+          <!-- Top findings -->
+          <div class="result-findings">
+            <div class="findings-label">Temuan Utama</div>
+            <ul class="findings-list" id="resultFindings"></ul>
+          </div>
+
+          <!-- Recommendation -->
+          <div class="result-recommendation" id="resultRecommendation"></div>
+
+          <a href="#konsultasi" class="result-cta-btn">Konsultasikan Kasus Ini →</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="#konsultasi" class="sticky-cta">Mulai Audit Privat</a>
+
+<!-- ─── MARQUEE ─── -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Audit Reputasi Digital</span>
+    <span class="marquee-item">Pembersihan Konten</span>
+    <span class="marquee-item">Optimasi Citra Profesional</span>
+    <span class="marquee-item">Manajemen Krisis</span>
+    <span class="marquee-item">Perlindungan Privasi</span>
+    <span class="marquee-item">SEO Reputasi</span>
+    <span class="marquee-item">Audit Reputasi Digital</span>
+    <span class="marquee-item">Pembersihan Konten</span>
+    <span class="marquee-item">Optimasi Citra Profesional</span>
+    <span class="marquee-item">Manajemen Krisis</span>
+    <span class="marquee-item">Perlindungan Privasi</span>
+    <span class="marquee-item">SEO Reputasi</span>
+  </div>
+</div>
+
+<!-- ─── SERVICES ─── -->
+<section id="layanan">
+  <div class="reveal">
+    <div class="section-eyebrow">Pilar Layanan</div>
+    <h2 class="section-title">Kami tidak hanya<br><em>menghapus</em>, kami <em>kurasi</em>.</h2>
+    <p class="section-body">Setiap tindakan kami didasarkan pada audit data awal—bukan asumsi—untuk memastikan perubahan yang berdampak nyata dan tahan lama.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-number">01</div>
+      <div class="service-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="18" r="10" stroke="#b8974a" stroke-width="1.2"/>
+          <path d="M26 26l8 8" stroke="#b8974a" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M14 18h8M18 14v8" stroke="#b8974a" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+      </div>
+      <h3 class="service-title">Audit Reputasi Digital</h3>
+      <p class="service-desc">Pemindaian mendalam (<em>deep-scan</em>) terhadap seluruh jejak digital klien di mesin pencari, media sosial, dan forum publik untuk mengidentifikasi potensi risiko reputasi secara komprehensif.</p>
+      <a href="#konsultasi" class="quick-cta">Mulai Audit Privat</a>
+      <div class="service-tag">Deep-Scan · Risk Mapping</div>
+    </div>
+
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-number">02</div>
+      <div class="service-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="10" width="24" height="20" rx="2" stroke="#b8974a" stroke-width="1.2"/>
+          <path d="M14 20l4 4 8-8" stroke="#b8974a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3 class="service-title">Pembersihan & Kurasi</h3>
+      <p class="service-desc">Tindakan teknis dan administratif untuk mengelola konten negatif, tidak relevan, atau tidak profesional. Kami bekerja melalui kebijakan platform—bukan cara ilegal atau bot—untuk hasil yang berkelanjutan.</p>
+      <a href="#konsultasi" class="quick-cta">Mulai Audit Privat</a>
+      <div class="service-tag">Ethical Removal · Policy-Based</div>
+    </div>
+
+    <div class="service-card reveal reveal-delay-3">
+      <div class="service-number">03</div>
+      <div class="service-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 8l2.2 6.8H29l-5.8 4.2 2.2 6.8L20 22l-5.4 3.8 2.2-6.8L11 14.8h6.8z" stroke="#b8974a" stroke-width="1.2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3 class="service-title">Optimasi Citra Profesional</h3>
+      <p class="service-desc">Memperkuat narasi positif klien secara organik sehingga profil profesional—LinkedIn, portofolio, atau situs resmi—menjadi hal pertama yang ditemukan publik saat mencari nama Anda.</p>
+      <a href="#konsultasi" class="quick-cta">Mulai Audit Privat</a>
+      <div class="service-tag">SEO Reputasi · Presence Building</div>
+    </div>
+
+    <div class="service-card reveal reveal-delay-4">
+      <div class="service-number">04</div>
+      <div class="service-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 8v6M20 26v6M8 20h6M26 20h6" stroke="#b8974a" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="6" stroke="#b8974a" stroke-width="1.2"/>
+          <circle cx="20" cy="20" r="2" fill="#b8974a" opacity="0.5"/>
+        </svg>
+      </div>
+      <h3 class="service-title">Manajemen Krisis Digital</h3>
+      <p class="service-desc">Respons cepat dan taktis untuk menangani gejolak reputasi: ulasan negatif massal, konten viral yang merugikan, atau serangan terkoordinasi terhadap kredibilitas institusi Anda.</p>
+      <a href="#konsultasi" class="quick-cta">Mulai Audit Privat</a>
+      <div class="service-tag">72h Response · Crisis Containment</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider">
+  <div class="divider-line"></div>
+  <div class="divider-mark">Filosofi Kami</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- ─── WHY REFINEID ─── -->
+<section id="mengapa" class="why-section">
+  <div class="reveal">
+    <div class="section-eyebrow">Mengapa RefineID</div>
+    <h2 class="section-title">Bukan penghapus jejak.<br><em>Pengawal reputasi.</em></h2>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-left reveal">
+      <div class="philosophy-block">
+        <div class="philosophy-text">
+          "Masa lalu digital tidak seharusnya menjadi penghambat bagi masa depan. Kami adalah kurator yang memastikan narasi Anda bercerita tentang siapa Anda hari ini."
+        </div>
+        <div class="philosophy-attr">— Filosofi RefineID</div>
+      </div>
+
+      <div style="margin-top: 32px; padding: 32px; border: 1px solid var(--border-dim); border-radius: 2px;">
+        <div class="section-eyebrow" style="margin-bottom:12px; font-size:0.58rem;">Komitmen Kami</div>
+        <p style="font-size:0.88rem; line-height:1.8; color:var(--text-secondary); font-weight:300;">
+          Setiap proyek kami dimulai dan diakhiri dengan kerahasiaan penuh. Tidak ada satu pun detail klien yang dibagikan, disimpan secara tidak perlu, atau digunakan sebagai referensi publik tanpa persetujuan eksplisit.
+        </p>
+      </div>
+    </div>
+
+    <div class="why-pillars">
+      <div class="pillar reveal reveal-delay-1">
+        <div class="pillar-num">i.</div>
+        <div>
+          <div class="pillar-title">Pendekatan Humanis</div>
+          <div class="pillar-desc">Kami tidak menggunakan bot, scraper ilegal, atau teknik hacking. Strategi kami berbasis kebijakan platform, analisis konteks manusia, dan komunikasi persuasif yang etis.</div>
+        </div>
+      </div>
+      <div class="pillar reveal reveal-delay-2">
+        <div class="pillar-num">ii.</div>
+        <div>
+          <div class="pillar-title">Kerahasiaan Mutlak</div>
+          <div class="pillar-desc">Kepercayaan klien adalah aset kami yang paling berharga. RefineID menjamin privasi penuh dalam setiap tahapan—dari audit awal hingga laporan akhir dan seterusnya.</div>
+        </div>
+      </div>
+      <div class="pillar reveal reveal-delay-3">
+        <div class="pillar-num">iii.</div>
+        <div>
+          <div class="pillar-title">Berbasis Data & Strategi</div>
+          <div class="pillar-desc">Tidak ada tindakan yang kami lakukan tanpa dasar audit data. Setiap langkah dirancang untuk dampak yang permanen—bukan perbaikan kosmetik yang sementara.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TRUSTED OUTCOMES ─── -->
+<section id="trusted-outcomes" class="trusted-section">
+  <div class="reveal">
+    <div class="section-eyebrow">Trusted Outcomes</div>
+    <h2 class="section-title">Hasil Nyata, <em>Tanpa Eksposur</em></h2>
+    <p class="section-body">Diskresi adalah bagian dari layanan kami. Berikut adalah ringkasan hasil yang telah kami capai—tanpa mengungkap identitas klien.</p>
+  </div>
+
+  <div class="trusted-grid">
+    <article class="case-card reveal reveal-delay-1">
+      <h4>Kasus #014 — Eksekutif Teknologi</h4>
+      <p>Masalah:</p>
+      <ul>
+        <li>3 hasil negatif di Google halaman 1</li>
+        <li>Konten forum lama</li>
+      </ul>
+      <p>Tindakan:</p>
+      <ul>
+        <li>Cleanup berbasis kebijakan platform</li>
+        <li>Optimasi profil profesional</li>
+      </ul>
+      <p>Hasil:</p>
+      <ul>
+        <li>✔ 2 konten dihapus</li>
+        <li>✔ 1 turun ke halaman 3</li>
+        <li>✔ Skor reputasi: 42 → 81</li>
+      </ul>
+    </article>
+
+    <article class="case-card reveal reveal-delay-2">
+      <h4>Kasus #037 — Owner Brand Luxury</h4>
+      <p>Masalah:</p>
+      <ul>
+        <li>Ulasan negatif tak terkelola</li>
+        <li>Pengelolaan akun pribadi kurang konsisten</li>
+      </ul>
+      <p>Tindakan:</p>
+      <ul>
+        <li>Manajemen review & respons profesional</li>
+        <li>Optimalisasi rantai profil resmi</li>
+      </ul>
+      <p>Hasil:</p>
+      <ul>
+        <li>✔ Reputasi rating naik 2.1→4.4</li>
+        <li>✔ Sinyal negatif turun 69%</li>
+      </ul>
+    </article>
+
+    <article class="case-card reveal reveal-delay-3">
+      <h4>Kasus #068 — Pimpinan Industri Finansial</h4>
+      <p>Masalah:</p>
+      <ul>
+        <li>Konten topik sensitif di hasil pencarian</li>
+        <li>Keterkaitan nama dengan rumor</li>
+      </ul>
+      <p>Tindakan:</p>
+      <ul>
+        <li>Strategi konten positif berkelanjutan</li>
+        <li>Negosiasi penghapusan & penonaktifan tautan</li>
+      </ul>
+      <p>Hasil:</p>
+      <ul>
+        <li>✔ 5 tautan negatif ditutup</li>
+        <li>✔ Domain otoritas tervalidasi meningkat</li>
+      </ul>
+    </article>
+  </div>
+
+  <div class="metrics-section reveal reveal-delay-4">
+    <div class="metrics-grid">
+      <article class="metric-card">
+        <h3>500+</h3>
+        <span>Kasus Ditangani</span>
+      </article>
+      <article class="metric-card">
+        <h3>94%</h3>
+        <span>Rasio Keberhasilan</span>
+      </article>
+      <article class="metric-card">
+        <h3>72h</h3>
+        <span>Respon Krisis</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section id="testimonials" class="testimonials-section">
+  <div class="reveal">
+    <div class="section-eyebrow">Testimoni</div>
+    <h2 class="section-title">Ulasan anonim dari<br><em>klien</em> yang memilih kami</h2>
+  </div>
+
+  <div class="testimonials-grid">
+    <article class="testimonial-card reveal reveal-delay-1">
+      <blockquote>"Pendekatan mereka lebih seperti strategic advisor daripada vendor. Kami mendapatkan ringkasan situasi yang jelas, jalur tindakan yang terukur, dan hasil yang cepat—tanpa suara gaduh publik."</blockquote>
+      <div class="source">— Founder, Technology Startup</div>
+    </article>
+
+    <article class="testimonial-card reveal reveal-delay-2">
+      <blockquote>"Kerahasiaan adalah janji yang mereka tepati. Hanya dalam 6 minggu, risiko reputasi kami menurun secara signifikan dan konsolidasi kemunculan pencarian berhasil."</blockquote>
+      <div class="source">— Council Member, Private Equity</div>
+    </article>
+
+    <article class="testimonial-card reveal reveal-delay-3">
+      <blockquote>"Layanan ini terasa personal, putih abu-abu, dan eksklusif. Bukan produk masal — setiap keputusan dikomunikasikan secara privat dengan pemahaman kontekstual mendalam."</blockquote>
+      <div class="source">— Senior Advisor, Corporate Governance</div>
+    </article>
+  </div>
+</section>
+
+<!-- ─── AUDIENCE ─── -->
+<section id="klien" class="audience-section">
+  <div class="audience-section-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">Target Klien</div>
+      <h2 class="section-title">Kami melayani siapa yang<br>peduli pada <em>nama</em> mereka.</h2>
+      <p class="section-body">Reputasi bukan hanya milik selebriti atau politisi. Di era digital, setiap nama adalah merek—dan setiap merek layak untuk dilindungi.</p>
+    </div>
+
+    <div class="audience-grid">
+      <div class="audience-card reveal reveal-delay-1">
+        <span class="audience-icon">◎</span>
+        <h3 class="audience-title">Perorangan</h3>
+        <p class="audience-desc">Individu yang ingin memulai lembaran baru, melindungi privasi, atau membersihkan jejak masa lalu yang tidak lagi mencerminkan siapa mereka sekarang.</p>
+        <div class="audience-tags">
+          <span class="tag">Privasi Digital</span>
+          <span class="tag">Fresh Start</span>
+          <span class="tag">Proteksi Identitas</span>
+        </div>
+      </div>
+
+      <div class="audience-card reveal reveal-delay-2">
+        <span class="audience-icon">◈</span>
+        <h3 class="audience-title">Profesional</h3>
+        <p class="audience-desc">Eksekutif, pelamar kerja, dan praktisi karier yang sadar bahwa rekam jejak online adalah "CV kedua" yang dibaca perekrut, klien, dan mitra bisnis.</p>
+        <div class="audience-tags">
+          <span class="tag">C-Level</span>
+          <span class="tag">Job Seeker</span>
+          <span class="tag">LinkedIn Optimization</span>
+        </div>
+      </div>
+
+      <div class="audience-card reveal reveal-delay-3">
+        <span class="audience-icon">◇</span>
+        <h3 class="audience-title">Institusi</h3>
+        <p class="audience-desc">UMKM, brand, dan organisasi yang membutuhkan perlindungan reputasi di tengah ketatnya persaingan digital dan ancaman ulasan negatif yang terorganisir.</p>
+        <div class="audience-tags">
+          <span class="tag">Brand Protection</span>
+          <span class="tag">UMKM</span>
+          <span class="tag">Krisis Management</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESS ─── -->
+<section id="proses">
+  <div class="reveal">
+    <div class="section-eyebrow">Proses Kerja</div>
+    <h2 class="section-title">Transparan dari<br><em>awal</em> hingga <em>akhir</em>.</h2>
+    <p class="section-body">Kami percaya klien berhak memahami setiap langkah yang kami ambil atas nama mereka.</p>
+  </div>
+
+  <div class="process-timeline">
+    <div class="process-step reveal reveal-delay-1">
+      <div class="step-marker">
+        <div class="step-num">1</div>
+        <div class="step-line"></div>
+      </div>
+      <div>
+        <div class="step-title">Konsultasi Awal & Perjanjian Kerahasiaan</div>
+        <div class="step-desc">Sesi 30–60 menit untuk memahami situasi klien. Tidak ada data yang dikumpulkan sebelum NDA ditandatangani. Konsultasi pertama gratis.</div>
+      </div>
+    </div>
+
+    <div class="process-step reveal reveal-delay-2">
+      <div class="step-marker">
+        <div class="step-num">2</div>
+        <div class="step-line"></div>
+      </div>
+      <div>
+        <div class="step-title">Audit Digital Menyeluruh</div>
+        <div class="step-desc">Tim kami melakukan deep-scan terhadap seluruh jejak digital klien. Hasilnya didokumentasikan dalam Laporan Audit komprehensif dengan skor reputasi dan peta risiko.</div>
+      </div>
+    </div>
+
+    <div class="process-step reveal reveal-delay-3">
+      <div class="step-marker">
+        <div class="step-num">3</div>
+        <div class="step-line"></div>
+      </div>
+      <div>
+        <div class="step-title">Rencana Tindak Berbasis Prioritas</div>
+        <div class="step-desc">Kami menyusun roadmap perbaikan yang diprioritaskan berdasarkan dampak dan urgensi—klien menyetujui setiap langkah sebelum eksekusi dimulai.</div>
+      </div>
+    </div>
+
+    <div class="process-step reveal reveal-delay-4">
+      <div class="step-marker">
+        <div class="step-num">4</div>
+        <div class="step-line"></div>
+      </div>
+      <div>
+        <div class="step-title">Eksekusi & Monitoring Berkelanjutan</div>
+        <div class="step-desc">Implementasi strategi dengan laporan progres rutin. Kami memantau perubahan secara aktif dan melakukan penyesuaian taktis jika diperlukan.</div>
+      </div>
+    </div>
+
+    <div class="process-step reveal">
+      <div class="step-marker">
+        <div class="step-num">5</div>
+      </div>
+      <div>
+        <div class="step-title">Laporan Final & Pemeliharaan Opsional</div>
+        <div class="step-desc">Laporan akhir dengan perbandingan sebelum/sesudah yang terukur. Paket pemeliharaan tersedia untuk menjaga reputasi tetap optimal jangka panjang.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONVERSION INSIGHT ─── -->
+<section class="insight-section reveal" id="insight">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div class="section-eyebrow">Conversion Insight</div>
+    <h2 class="section-title">Data eksklusif dari pipeline kami</h2>
+    <p class="section-body">Performa real-time bukan sekadar klaim; data internal kami menunjukkan tren naik yang stabil untuk setiap klien yang sudah bergabung.</p>
+  </div>
+  <div class="insight-grid">
+    <article class="insight-card reveal reveal-delay-1">
+      <h4>Visitor-to-Consult</h4>
+      <div class="progress-label">Rata-rata saat webinar & personal outreach</div>
+      <div class="progress-bar"><div class="progress-fill" data-fill="76"></div></div>
+    </article>
+    <article class="insight-card reveal reveal-delay-2">
+      <h4>Going Private</h4>
+      <div class="progress-label">Proses screening end-to-end</div>
+      <div class="progress-bar"><div class="progress-fill" data-fill="42"></div></div>
+    </article>
+    <article class="insight-card reveal reveal-delay-3">
+      <h4>Retention</h4>
+      <div class="progress-label">Langganan maintenance & monitoring</div>
+      <div class="progress-bar"><div class="progress-fill" data-fill="89"></div></div>
+    </article>
+  </div>
+  <div class="live-feed reveal reveal-delay-4" id="liveFeed">Live update: 5 klien baru terjadwal dalam 90 menit terakhir.</div>
+</section>
+
+<!-- ─── CTA ─── -->
+<section id="konsultasi" class="cta-section">
+  <div class="cta-section-inner">
+    <div class="section-eyebrow reveal" style="justify-content:center;">Konsultasi Privat Dimulai dari Sini</div>
+    <h2 class="section-title reveal">Konsultasi Privat<br>Dimulai dari Sini</h2>
+    <p class="section-body reveal">Kami menangani setiap kasus secara selektif untuk menjaga kualitas dan kerahasiaan.</p>
+
+    <form id="contactForm" class="reveal" style="margin:0 auto 0; display:grid; gap:14px;">
+      <input type="text" name="name" id="nameInput" placeholder="Nama" required style="background: rgba(255,255,255,0.03); border:1px solid var(--border-dim); padding:12px 14px; border-radius:3px; color:var(--text-primary); font-family:'Outfit',sans-serif; width:100%;" />
+      <input type="email" name="email" id="emailInput" placeholder="Email" required style="background: rgba(255,255,255,0.03); border:1px solid var(--border-dim); padding:12px 14px; border-radius:3px; color:var(--text-primary); font-family:'Outfit',sans-serif; width:100%;" />
+      <textarea name="message" id="messageInput" placeholder="Deskripsi singkat situasi Anda" rows="4" style="background: rgba(255,255,255,0.03); border:1px solid var(--border-dim); padding:12px 14px; border-radius:3px; color:var(--text-primary); font-family:'Outfit',sans-serif; width:100%; resize:vertical;"></textarea>
+      <button type="submit" class="btn-primary" style="font-size:0.78rem; padding:14px 34px; width:max-content; max-width:100%;"><span>Kirim Permintaan Konsultasi</span></button>
+    </form>
+
+    <div class="exclusivity-note reveal" style="margin-top:20px;">Tidak semua permintaan kami terima. Setiap kasus melalui proses evaluasi awal.</div>
+    <div class="cta-note reveal">Kerahasiaan dijamin · Respons dalam 24 jam · Diskresi level premium</div>
+  </div>
+</section>
+
+<div class="modal-overlay" id="contactModal" aria-hidden="true">
+  <div class="modal-window">
+    <button class="modal-close" id="modalClose" aria-label="Tutup">×</button>
+    <h3>Konfirmasi Permintaan Konsultasi</h3>
+    <p class="modal-description">Silakan konfirmasi informasi Anda sebelum melanjutkan pengiriman via email.</p>
+    <div class="modal-detail"><strong>Nama:</strong> <span id="confirmName">-</span></div>
+    <div class="modal-detail"><strong>Email:</strong> <span id="confirmEmail">-</span></div>
+    <div class="modal-detail"><strong>Deskripsi:</strong><br/><span id="confirmMessage">-</span></div>
+    <div class="modal-actions">
+      <button id="modalCancel" class="btn-ghost">Batal</button>
+      <button id="modalConfirm" class="btn-primary"><span>Kirim Email</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Refine<span>ID</span></div>
+      <p class="footer-tagline">Memurnikan identitas digital Anda agar mencerminkan versi terbaik dan paling profesional dari siapa Anda hari ini.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Layanan</div>
+      <ul class="footer-links">
+        <li><a href="#layanan">Audit Reputasi Digital</a></li>
+        <li><a href="#layanan">Pembersihan & Kurasi</a></li>
+        <li><a href="#layanan">Optimasi Citra Profesional</a></li>
+        <li><a href="#layanan">Manajemen Krisis Digital</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Perusahaan</div>
+      <ul class="footer-links">
+        <li><a href="#mengapa">Filosofi</a></li>
+        <li><a href="#proses">Proses Kerja</a></li>
+        <li><a href="#klien">Klien</a></li>
+        <li><a href="#konsultasi">Konsultasi</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 RefineID · Semua Hak Dilindungi</div>
+    <div class="footer-philosophy">"Refine your identity, own your narrative."</div>
+  </div>
+</footer>
+
+<script>
+// ─── CURSOR ───
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+
+function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  cursorRing.style.left = rx + 'px';
+  cursorRing.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+document.querySelectorAll('a, button, .service-card, .audience-card, .pillar').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); cursorRing.classList.add('hover'); });
+  el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); cursorRing.classList.remove('hover'); });
+});
+
+// ─── NAVBAR ───
+const navbar = document.getElementById('navbar');
+const powerBoost = document.querySelector('.power-boost');
+window.addEventListener('scroll', () => {
+  const atTop = window.scrollY < 260;
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+  if (powerBoost) {
+    if (atTop) {
+      powerBoost.classList.remove('visible');
+    } else {
+      powerBoost.classList.add('visible');
+    }
+  }
+});
+
+// ─── SCROLL REVEAL ───
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+reveals.forEach(el => observer.observe(el));
+
+// ─── SCAN CARD ANIMATION ───
+const scanItems = document.querySelectorAll('.scan-item');
+scanItems.forEach((item, i) => {
+  item.style.opacity = '0';
+  item.style.transform = 'translateX(20px)';
+  setTimeout(() => {
+    item.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+    item.style.opacity = '1';
+    item.style.transform = 'translateX(0)';
+  }, 1200 + i * 180);
+});
+
+// ─── SMOOTH SCROLL ───
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// ─── PROGRESS BAR ANIMATION ───
+const progressFills = document.querySelectorAll('.progress-fill');
+progressFills.forEach(el => {
+  const to = el.getAttribute('data-fill');
+  setTimeout(() => { el.style.width = `${to}%`; }, 600);
+});
+
+// ─── LIVE FEED ROTATOR ───
+const liveFeed = document.getElementById('liveFeed');
+const liveClock = [
+  'Live update: 5 klien baru terjadwal dalam 90 menit terakhir.',
+  'Live update: 3 permintaan disetujui untuk sesi konsultasi pribadi minggu ini.',
+  'Live update: 2 klien kontrak ulang maintenance premium hari ini.',
+];
+let liveIndex = 0;
+setInterval(() => {
+  liveIndex = (liveIndex + 1) % liveClock.length;
+  if (liveFeed) liveFeed.textContent = liveClock[liveIndex];
+}, 7000);
+
+// ─── AUDIT SIMULATOR ENGINE ───
+(function() {
+
+const ROLES = {
+  exec: 'Eksekutif / C-Level',
+  prof: 'Profesional / Karier',
+  biz:  'Pemilik Bisnis / Brand',
+  pub:  'Figur Publik',
+};
+
+// Deterministic seeded random based on name
+function seededRand(seed, min, max) {
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) h = Math.imul(31, h) + seed.charCodeAt(i) | 0;
+  const t = Math.abs(Math.sin(h) * 10000);
+  return min + Math.floor((t - Math.floor(t)) * (max - min + 1));
+}
+
+// Generate a full audit profile from name + role
+function generateAudit(name, roleKey) {
+  const s = n => seededRand(name + n, 0, 100);
+
+  // Category scores (0-100, higher = better)
+  const cats = [
+    { id:'google',    label:'Google Halaman 1',    score: s('g') },
+    { id:'sosmed',    label:'Media Sosial',         score: s('sm') },
+    { id:'linkedin',  label:'Profil LinkedIn',      score: s('li') },
+    { id:'berita',    label:'Berita & Artikel',     score: s('b') },
+    { id:'review',    label:'Review & Ulasan',      score: s('rv') },
+    { id:'privasi',   label:'Eksposur Data Pribadi',score: s('pr') },
+  ];
+
+  // Overall score = weighted avg
+  const weights = [0.25, 0.2, 0.2, 0.15, 0.1, 0.1];
+  const overall = Math.round(cats.reduce((acc, c, i) => acc + c.score * weights[i], 0));
+
+  // Risk level
+  const level = overall >= 72 ? 'safe' : overall >= 48 ? 'moderate' : 'critical';
+
+  // Verdict text
+  const verdicts = {
+    safe:     { text: 'Reputasi Terjaga',   urgency: 'Risiko rendah · Optimasi direkomendasikan', color: '#4ade80' },
+    moderate: { text: 'Perlu Perhatian',    urgency: 'Risiko sedang · Tindakan disarankan',       color: '#fbbf24' },
+    critical: { text: 'Kondisi Kritis',     urgency: 'Risiko tinggi · Penanganan segera',         color: '#f87171' },
+  };
+
+  // Risk tags
+  const riskTags = cats
+    .filter(c => c.score < 50)
+    .slice(0, 3)
+    .map(c => ({ label: c.label.split(' ')[0], level: c.score < 35 ? 'critical' : 'warning' }));
+  if (riskTags.length === 0) riskTags.push({ label: 'Stabil', level: 'safe' });
+
+  // Generate findings
+  const findingPool = {
+    google: [
+      'Ditemukan konten negatif di 3 hasil pencarian halaman pertama',
+      'Hasil pencarian nama tidak menunjukkan profil profesional teratas',
+      'Artikel lawas berpotensi merugikan karier masih terindeks',
+    ],
+    sosmed: [
+      'Akun lama dengan konten tidak relevan masih terindeks publik',
+      'Unggahan dari 4–7 tahun lalu berpotensi menimbulkan salah persepsi',
+      'Konsistensi pesan lintas platform rendah',
+    ],
+    linkedin: [
+      'Profil LinkedIn belum dioptimasi untuk pencarian nama',
+      'Tidak ada konten otoritatif yang memperkuat narasi profesional',
+      'Koneksi dan endorsement belum mencerminkan posisi saat ini',
+    ],
+    berita: [
+      'Tidak ditemukan kutipan atau liputan media dalam 12 bulan terakhir',
+      'Penyebutan nama di forum publik tidak terkontrol',
+    ],
+    review: [
+      'Terdapat 2–4 ulasan negatif tanpa respons profesional',
+      'Rating rata-rata pada platform review di bawah standar industri',
+    ],
+    privasi: [
+      'Data pribadi (nomor, alamat) terekspos di situs data broker',
+      'Informasi kontak lama masih beredar di direktori publik',
+    ],
+  };
+
+  const findings = [];
+  cats.forEach(c => {
+    if (c.score < 55 && findingPool[c.id]) {
+      const idx = seededRand(name + c.id + 'f', 0, findingPool[c.id].length - 1);
+      findings.push(findingPool[c.id][idx]);
+    }
+  });
+  if (findings.length === 0) findings.push('Tidak ditemukan risiko signifikan saat ini.');
+  const finalFindings = findings.slice(0, 4);
+
+  // Recommendation
+  const recs = {
+    safe:     `Profil digital ${name} relatif bersih. Kami merekomendasikan audit rutin 6 bulan sekali dan penguatan narasi profesional untuk mempertahankan posisi ini.`,
+    moderate: `Terdapat beberapa titik risiko yang memerlukan perhatian sebelum menjadi masalah serius. Strategi kurasi konten dan optimasi profil akan memberi dampak signifikan dalam 30–60 hari.`,
+    critical: `Situasi reputasi digital ${name} memerlukan penanganan segera. RefineID merekomendasikan sesi konsultasi privat untuk merancang roadmap perbaikan terstruktur secepatnya.`,
+  };
+
+  return { name, roleKey, overall, level, cats, verdicts: verdicts[level], riskTags, findings: finalFindings, recommendation: recs[level] };
+}
+
+// Scan log messages (shown while scanning)
+function buildLogLines(audit) {
+  const lines = [];
+  audit.cats.forEach(c => {
+    const st = c.score >= 70 ? 'ok' : c.score >= 45 ? 'warn' : 'risk';
+    const icons = { ok: '✓ Bersih', warn: '⚠ Terdeteksi risiko', risk: '✕ Konten bermasalah' };
+    lines.push({ text: `${c.label}: ${icons[st]}`, cls: st });
+  });
+  lines.push({ text: 'Menganalisis pola pencarian nama...', cls: 'ok' });
+  lines.push({ text: 'Menyusun laporan reputasi...', cls: 'ok' });
+  return lines;
+}
+
+// ─── UI WIRING ───
+const stateInput    = document.getElementById('stateInput');
+const stateScanning = document.getElementById('stateScanning');
+const stateResults  = document.getElementById('stateResults');
+const simName       = document.getElementById('simName');
+const simRole       = document.getElementById('simRole');
+const simBtn        = document.getElementById('simBtn');
+const resetBtn      = document.getElementById('resetBtn');
+
+function showState(id) {
+  [stateInput, stateScanning, stateResults].forEach(el => el.style.display = 'none');
+  document.getElementById(id).style.display = 'block';
+}
+
+function runScan(audit) {
+  showState('stateScanning');
+  document.getElementById('scanDisplayName').textContent = audit.name;
+  document.getElementById('scanDisplayRole').textContent = ROLES[audit.roleKey];
+
+  const fill   = document.getElementById('scanProgressFill');
+  const pct    = document.getElementById('scanProgressPct');
+  const status = document.getElementById('scanStatusText');
+  const log    = document.getElementById('scanLog');
+  log.innerHTML = '';
+
+  const logLines = buildLogLines(audit);
+  const totalDuration = 3200;
+  const statusMsgs = ['Menginisialisasi...', 'Memindai Google...', 'Memeriksa media sosial...', 'Menganalisis artikel...', 'Menyusun laporan...'];
+  let pctVal = 0;
+  let logIdx = 0;
+
+  const progInterval = setInterval(() => {
+    pctVal = Math.min(100, pctVal + Math.floor(Math.random() * 5) + 2);
+    fill.style.width = pctVal + '%';
+    pct.textContent = pctVal + '%';
+    const si = Math.min(statusMsgs.length - 1, Math.floor((pctVal / 100) * statusMsgs.length));
+    status.textContent = statusMsgs[si];
+    if (pctVal >= 100) clearInterval(progInterval);
+  }, 80);
+
+  // Reveal log lines one by one
+  logLines.forEach((line, i) => {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = `scan-log-line ${line.cls}`;
+      el.innerHTML = `<span class="scan-log-dot"></span>${line.text}`;
+      log.appendChild(el);
+      requestAnimationFrame(() => el.classList.add('show'));
+    }, 300 + i * 340);
+  });
+
+  // Show results after scan
+  setTimeout(() => {
+    clearInterval(progInterval);
+    showResults(audit);
+  }, totalDuration);
+}
+
+function showResults(audit) {
+  showState('stateResults');
+
+  // Identity
+  document.getElementById('resultName').textContent = audit.name;
+  document.getElementById('resultRole').textContent = ROLES[audit.roleKey];
+
+  // Timestamp
+  const now = new Date();
+  document.getElementById('resultTimestamp').textContent =
+    now.toLocaleDateString('id-ID', { day:'2-digit', month:'short', year:'numeric' }) + ' · ' +
+    now.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
+
+  // Score ring
+  const ringFill = document.getElementById('scoreRingFill');
+  const circumference = 251.2;
+  const dashOffset = circumference - (audit.overall / 100) * circumference;
+  ringFill.style.stroke = audit.verdicts.color;
+  document.getElementById('resultScoreNum').textContent = audit.overall;
+  document.getElementById('resultScoreNum').style.color = audit.verdicts.color;
+
+  setTimeout(() => { ringFill.style.strokeDashoffset = dashOffset; }, 80);
+
+  // Verdict
+  document.getElementById('resultVerdict').textContent = audit.verdicts.text;
+  document.getElementById('resultVerdict').style.color = audit.verdicts.color;
+  document.getElementById('resultUrgency').textContent = audit.verdicts.urgency;
+  document.getElementById('resultUrgency').style.color = audit.verdicts.color;
+
+  // Risk tags
+  const tagsEl = document.getElementById('resultRiskTags');
+  tagsEl.innerHTML = audit.riskTags.map(t =>
+    `<span class="risk-tag ${t.level}">${t.label}</span>`
+  ).join('');
+
+  // Category bars
+  const catsEl = document.getElementById('resultCategories');
+  catsEl.innerHTML = audit.cats.map(c => {
+    const col = c.score >= 70 ? '#4ade80' : c.score >= 45 ? '#fbbf24' : '#f87171';
+    return `<div class="cat-row">
+      <div class="cat-label">${c.label}</div>
+      <div class="cat-bar"><div class="cat-bar-fill" data-fill="${c.score}" style="background:${col};"></div></div>
+      <div class="cat-score" style="color:${col};">${c.score}</div>
+    </div>`;
+  }).join('');
+
+  setTimeout(() => {
+    catsEl.querySelectorAll('.cat-bar-fill').forEach(el => {
+      el.style.width = el.dataset.fill + '%';
+    });
+  }, 120);
+
+  // Findings
+  const findingsEl = document.getElementById('resultFindings');
+  findingsEl.innerHTML = audit.findings.map(f => `<li>${f}</li>`).join('');
+
+  // Recommendation
+  document.getElementById('resultRecommendation').textContent = `"${audit.recommendation}"`;
+}
+
+// Trigger scan
+simBtn.addEventListener('click', () => {
+  const name = simName.value.trim();
+  if (!name) { simName.focus(); simName.style.borderColor = '#f87171'; return; }
+  simName.style.borderColor = '';
+  const audit = generateAudit(name, simRole.value);
+  runScan(audit);
+});
+
+simName.addEventListener('keydown', e => {
+  if (e.key === 'Enter') simBtn.click();
+});
+
+// Reset
+if (resetBtn) {
+  resetBtn.addEventListener('click', () => {
+    simName.value = '';
+    showState('stateInput');
+  });
+}
+
+})();
+
+// ─── EMAIL FORM (mailto) + 2-step modal ───
+const contactForm = document.getElementById('contactForm');
+const contactModal = document.getElementById('contactModal');
+const confirmName = document.getElementById('confirmName');
+const confirmEmail = document.getElementById('confirmEmail');
+const confirmMessage = document.getElementById('confirmMessage');
+const modalClose = document.getElementById('modalClose');
+const modalCancel = document.getElementById('modalCancel');
+const modalConfirm = document.getElementById('modalConfirm');
+
+function hideModal() {
+  if (!contactModal) return;
+  contactModal.classList.remove('visible');
+  contactModal.setAttribute('aria-hidden', 'true');
+}
+
+function openModal() {
+  if (!contactModal) return;
+  contactModal.classList.add('visible');
+  contactModal.setAttribute('aria-hidden', 'false');
+}
+
+if (contactForm) {
+  contactForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const name = document.getElementById('nameInput').value.trim();
+    const email = document.getElementById('emailInput').value.trim();
+    const message = document.getElementById('messageInput').value.trim();
+    if (!name || !email || !message) return;
+
+    confirmName.textContent = name;
+    confirmEmail.textContent = email;
+    confirmMessage.textContent = message;
+    openModal();
+  });
+}
+
+if (modalClose) modalClose.addEventListener('click', hideModal);
+if (modalCancel) modalCancel.addEventListener('click', hideModal);
+if (modalConfirm) {
+  modalConfirm.addEventListener('click', () => {
+    const name = document.getElementById('nameInput').value.trim();
+    const email = document.getElementById('emailInput').value.trim();
+    const message = document.getElementById('messageInput').value.trim();
+    if (!name || !email || !message) return;
+
+    const subject = encodeURIComponent(`Konsultasi RefineID - ${name}`);
+    const body = encodeURIComponent(`Nama: ${name}\nEmail: ${email}\n\nDeskripsi:\n${message}`);
+    window.location.href = `mailto:halo@refineid.id?subject=${subject}&body=${body}`;
+    hideModal();
+  });
+}
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') hideModal();
+});
+
+// ─── DISABLE CUSTOM CURSOR ON MOBILE ───
+if (window.matchMedia('(max-width: 640px)').matches) {
+  const cur = document.getElementById('cursor');
+  const curR = document.getElementById('cursorRing');
+  if (cur) cur.style.display = 'none';
+  if (curR) curR.style.display = 'none';
+}
+
+</script>
+</body>
+</html>
